@@ -2,6 +2,10 @@
 	"$schema": "https://turbo.build/schema.json",
 	"globalDependencies": ["**/.env.*local"],
 	"tasks": {
+		"dev": {
+			"cache": false,
+			"persistent": true
+		},
 		"build": {
 			"dependsOn": ["^build"],
 			"outputs": ["dist/**"]
@@ -9,11 +13,6 @@
 		"prebuild": {
 			"cache": false,
 			"dependsOn": ["^build"]
-		},
-		"dev": {
-			"dependsOn": ["^build"],
-			"cache": false,
-			"persistent": true
 		},
 		"clean": {
 			"cache": false
