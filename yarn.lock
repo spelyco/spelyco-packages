@@ -604,7 +604,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/core@npm:^7.15.3":
+"@mantine/core@npm:^7.16.*":
   version: 7.16.0
   resolution: "@mantine/core@npm:7.16.0"
   dependencies:
@@ -622,7 +622,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/dates@npm:^7.15.3":
+"@mantine/dates@npm:^7.16.0":
   version: 7.16.0
   resolution: "@mantine/dates@npm:7.16.0"
   dependencies:
@@ -637,7 +637,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/form@npm:^7.15.3":
+"@mantine/form@npm:^7.16.0":
   version: 7.16.0
   resolution: "@mantine/form@npm:7.16.0"
   dependencies:
@@ -649,7 +649,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/hooks@npm:^7.15.3":
+"@mantine/hooks@npm:^7.16.*":
   version: 7.16.0
   resolution: "@mantine/hooks@npm:7.16.0"
   peerDependencies:
@@ -851,17 +851,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@spelyco/react-core@workspace:packages/react-core"
   dependencies:
-    "@tabler/icons-react": "npm:^3.6.0"
-    "@types/react": "npm:^18.3.12"
-    "@types/react-dom": "npm:^18.3.1"
-    mantine-datatable: "npm:^7.15.1"
-    tsup: "npm:^8.0.2"
-    typescript: "npm:^5.7.2"
+    "@types/react": "npm:^18.3.18"
+    "@types/react-dom": "npm:^18.3.5"
+    tsup: "npm:^8.3.5"
+    typescript: "npm:^5.7.3"
   peerDependencies:
-    "@mantine/core": ^7.15.3
-    "@mantine/dates": ^7.15.3
-    "@mantine/form": ^7.15.3
-    "@mantine/hooks": ^7.15.3
+    "@mantine/core": ^7.16.*
+    "@mantine/dates": ^7.16.*
+    "@mantine/form": ^7.16.*
+    "@mantine/hooks": ^7.16.*
+    "@tabler/icons-react": ^3.28.1
     "@tanstack/react-query": "*"
     axios: "*"
     clsx: "*"
@@ -948,7 +947,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/core@npm:^1.4.0":
+"@swc/core@npm:^1.10.7":
   version: 1.10.7
   resolution: "@swc/core@npm:1.10.7"
   dependencies:
@@ -1010,7 +1009,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tabler/icons-react@npm:^3.6.0":
+"@tabler/icons-react@npm:^3.28.1":
   version: 3.28.1
   resolution: "@tabler/icons-react@npm:3.28.1"
   dependencies:
@@ -1043,13 +1042,6 @@ __metadata:
   peerDependencies:
     react: ^18 || ^19
   checksum: 10c0/94393e72d8ed4aca112c10a5c421642fcd63e6f767ec68033e916ed66d75c9c515112942fd40e355ffa94ed41b5d48283bfa1b808aba26b4a154eedc82cd03be
-  languageName: node
-  linkType: hard
-
-"@types/add@npm:^2":
-  version: 2.0.3
-  resolution: "@types/add@npm:2.0.3"
-  checksum: 10c0/d18841b43d3799f69db0bdae380d19d05f43b716315c5bfd4d6c1b3467bada2644eab8c04bb5afdb94bba87604da06d466f22fe30df6bcf0518c373593bb474a
   languageName: node
   linkType: hard
 
@@ -1108,7 +1100,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.3.1":
+"@types/react-dom@npm:^18.3.5":
   version: 18.3.5
   resolution: "@types/react-dom@npm:18.3.5"
   peerDependencies:
@@ -1117,7 +1109,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^18.3.12":
+"@types/react@npm:^18.3.18":
   version: 18.3.18
   resolution: "@types/react@npm:18.3.18"
   dependencies:
@@ -1146,13 +1138,6 @@ __metadata:
   version: 2.0.0
   resolution: "abbrev@npm:2.0.0"
   checksum: 10c0/f742a5a107473946f426c691c08daba61a1d15942616f300b5d32fd735be88fef5cba24201757b6c407fd564555fb48c751cfa33519b2605c8a7aadd22baf372
-  languageName: node
-  linkType: hard
-
-"add@npm:^2.0.6":
-  version: 2.0.6
-  resolution: "add@npm:2.0.6"
-  checksum: 10c0/6b21d5f2e58cf5e15d56cc6f9ebce04f04f4c33ae25f09d600ddacf8df00036ba521f17feb1b3f81307b7c6d2ef0bed8b511a0f86f062eb90c2f909b48b588ae
   languageName: node
   linkType: hard
 
@@ -1325,7 +1310,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^2.1.1":
+"clsx@npm:^2.0.0, clsx@npm:^2.1.1":
   version: 2.1.1
   resolution: "clsx@npm:2.1.1"
   checksum: 10c0/c4c8eb865f8c82baab07e71bfa8897c73454881c4f99d6bc81585aecd7c441746c1399d08363dc096c550cceaf97bd4ce1e8854e1771e9998d9f94c4fe075839
@@ -2349,7 +2334,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.49":
+"postcss@npm:^8.4.49, postcss@npm:^8.5.1":
   version: 8.5.1
   resolution: "postcss@npm:8.5.1"
   dependencies:
@@ -2398,7 +2383,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^18.3.1":
+"react-dom@npm:^18.2.0":
   version: 18.3.1
   resolution: "react-dom@npm:18.3.1"
   dependencies:
@@ -2491,7 +2476,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:^18.3.1":
+"react@npm:^18.2.0":
   version: 18.3.1
   resolution: "react@npm:18.3.1"
   dependencies:
@@ -2733,15 +2718,10 @@ __metadata:
   resolution: "spelyco@workspace:."
   dependencies:
     "@biomejs/biome": "npm:^1.9.4"
-    "@swc/core": "npm:^1.4.0"
-    "@tanstack/react-query": "npm:^5.64.1"
-    "@types/add": "npm:^2"
-    add: "npm:^2.0.6"
-    tsup: "npm:^8.0.2"
+    "@swc/core": "npm:^1.10.7"
+    tsup: "npm:^8.3.5"
     turbo: "npm:^2.3.3"
     web: "workspace:^"
-    workspace: "npm:^0.0.1-preview.2"
-    zustand: "npm:^5.0.3"
   languageName: unknown
   linkType: soft
 
@@ -2925,7 +2905,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsup@npm:^8.0.2":
+"tsup@npm:^8.3.5":
   version: 8.3.5
   resolution: "tsup@npm:8.3.5"
   dependencies:
@@ -3044,7 +3024,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.7.2":
+"typescript@npm:^5.7.3":
   version: 5.7.3
   resolution: "typescript@npm:5.7.3"
   bin:
@@ -3054,7 +3034,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.7.2#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^5.7.3#optional!builtin<compat/typescript>":
   version: 5.7.3
   resolution: "typescript@patch:typescript@npm%3A5.7.3#optional!builtin<compat/typescript>::version=5.7.3&hash=5786d5"
   bin:
@@ -3228,25 +3208,28 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "web@workspace:apps/web"
   dependencies:
-    "@mantine/core": "npm:^7.15.3"
-    "@mantine/dates": "npm:^7.15.3"
-    "@mantine/form": "npm:^7.15.3"
-    "@mantine/hooks": "npm:^7.15.3"
+    "@mantine/core": "npm:^7.16.*"
+    "@mantine/dates": "npm:^7.16.0"
+    "@mantine/form": "npm:^7.16.0"
+    "@mantine/hooks": "npm:^7.16.*"
     "@spelyco/react-core": "npm:*"
-    "@tabler/icons-react": "npm:^3.6.0"
-    "@types/react": "npm:^18.3.12"
-    "@types/react-dom": "npm:^18.3.1"
+    "@tabler/icons-react": "npm:^3.28.1"
+    "@tanstack/react-query": "npm:^5.64.1"
+    "@types/react": "npm:^18.3.18"
+    "@types/react-dom": "npm:^18.3.5"
     "@vitejs/plugin-react": "npm:^4.3.4"
     axios: "npm:^1.7.9"
-    clsx: "npm:^2.1.1"
+    clsx: "npm:^2.0.0"
     dayjs: "npm:^1.11.13"
-    postcss: "npm:^8.4.49"
+    mantine-datatable: "npm:^7.15.1"
+    postcss: "npm:^8.5.1"
     postcss-preset-mantine: "npm:1.17.0"
     postcss-simple-vars: "npm:^7.0.1"
-    react: "npm:^18.3.1"
-    react-dom: "npm:^18.3.1"
-    typescript: "npm:^5.7.2"
+    react: "npm:^18.2.0"
+    react-dom: "npm:^18.2.0"
+    typescript: "npm:^5.7.3"
     vite: "npm:^6.0.7"
+    zustand: "npm:^5.0.3"
   languageName: unknown
   linkType: soft
 
@@ -3287,13 +3270,6 @@ __metadata:
   bin:
     node-which: bin/which.js
   checksum: 10c0/e556e4cd8b7dbf5df52408c9a9dd5ac6518c8c5267c8953f5b0564073c66ed5bf9503b14d876d0e9c7844d4db9725fb0dcf45d6e911e17e26ab363dc3965ae7b
-  languageName: node
-  linkType: hard
-
-"workspace@npm:^0.0.1-preview.2":
-  version: 0.0.1-preview.2
-  resolution: "workspace@npm:0.0.1-preview.2"
-  checksum: 10c0/6465af7cb50b9f7618034b3766c7a4fa20c1b3e43e843dd9e5e9ff16db39d8f7012a8f12814a4b7bafb0dc8c725644b9c3101d6b14154b0f190e1e6ae0330d50
   languageName: node
   linkType: hard
 

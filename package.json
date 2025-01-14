@@ -19,20 +19,15 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
-		"@swc/core": "^1.4.0",
-		"@types/add": "^2",
-		"tsup": "^8.0.2",
+		"@swc/core": "^1.10.7",
+		"tsup": "^8.3.5",
 		"turbo": "^2.3.3"
 	},
-	"engines": {
-		"node": ">=18"
+	"dependencies": {
+		"web": "workspace:^"
 	},
 	"packageManager": "yarn@4.6.0",
-	"dependencies": {
-		"@tanstack/react-query": "^5.64.1",
-		"add": "^2.0.6",
-		"web": "workspace:^",
-		"workspace": "^0.0.1-preview.2",
-		"zustand": "^5.0.3"
+	"engines": {
+		"node": ">=18"
 	}
 }
