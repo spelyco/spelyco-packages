@@ -1,33 +1,74 @@
-# Lext - React Native UI Library
+Spelyco Packages
+================
 
-## Simplify Mobile App Development with Powerful, Flexible, and User-Friendly UI Components
+A collection of powerful, flexible, and developer-friendly packages for React applications.
 
-![Lext Logo](https://res.cloudinary.com/dwmejslx5/video/upload/v1712173674/namsqlrjd4yslli11tzv.jpg)  
+ [![npm version](https://img.shields.io/npm/v/@spelyco/react-core.svg?style=flat)](https://www.npmjs.com/package/@spelyco/react-core)[![GitHub issues](https://img.shields.io/github/issues/spelyco/spelyco-packages)](https://github.com/spelyco/spelyco-packages/issues)[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-Lext is a sophisticated UI library designed for React Native, aiming to enhance mobile app development.
+🚀 About
+--------
 
-[![npm version](https://img.shields.io/npm/v/@lextdev/core.svg?style=flat)](https://www.npmjs.com/package/@lextdev/core)
-[![GitHub issues](https://img.shields.io/github/issues/lextdev/lext)](https://github.com/lextdev/lext/issues)
-[![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)](https://github.com/lextdev/lext/pulls)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+Spelyco Packages is a collection of libraries designed to accelerate React application development. Our packages provide everything you need, from core utilities to advanced integrations, making development not just efficient but enjoyable.
 
-## 🚀 About
+📦 Packages
+-----------
 
-Lext is a UI library created for React Native developers who aspire to build modern and innovative mobile applications. Developing interfaces with Lext is not only quick and effective but also enjoyable. Our library provides everything your application needs, from basic UI components to complex controls.
+* **[@spelyco/react-core](packages/react-core/README.md)**: Core React components and utilities with Strapi integration
+  * Strapi hooks for data management
+  * Mantine UI integration
+  * React Query powered data fetching
+  * Type-safe components and hooks
 
-## ✨ Features
+🛠️ Development
+---------------
 
-- [**Core**](packages/core/README.md): Essential UI components. Buttons, cards, modals, and more.
-- [**Hook**](packages/hook/README.md): Enhance your development experience with custom React Native hooks.
-- [**Storage**](packages/storage/README.md): Tools for easy data storage and management.
-- [**Form**](packages/form/README.md): Strong form management and validation features.
+### Prerequisites
 
-Each package can be installed and used modularly, according to your project's needs.
+* Node.js >= 18
+* Yarn >= 4.6.0
 
-## 🤝 Contributing
+### Setup
 
-As the Lext community, we always welcome developers who want to contribute to the project! Whether it's a bug fix or a new feature, we look forward to your ideas and pull requests.
+\# Install dependencies
+yarn install
 
-## 📄 License
+# Build all packages
 
-Lext is licensed under the MIT License. For details, see the License file.
+yarn workspaces foreach run build
+
+📝 Publishing
+-------------
+
+We use GitHub Actions for automated package publishing:
+
+### Latest Version
+
+1. Update version in package.json
+2. Go to GitHub Actions
+3. Select "Publish Package (Latest)"
+4. Choose the package
+5. Run workflow
+
+### Beta Version
+
+1. Keep current version in package.json
+2. Go to GitHub Actions
+3. Select "Publish Package (Beta)"
+4. Choose the package
+5. Run workflow
+
+🤝 Contributing
+---------------
+
+We welcome contributions! Here's how you can help:
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+📄 License
+----------
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
