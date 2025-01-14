@@ -1,4 +1,4 @@
-export const message = "Yunus SENEM";
-
 // Modules
-export * from "./spelyco-react";
+export * from "./mantine-data-table";
+export * from "./spely";
+export * from "./strapi";

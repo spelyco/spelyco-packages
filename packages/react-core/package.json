@@ -15,8 +15,13 @@
 	},
 	"peerDependencies": {
 		"@mantine/core": "^7.15.3",
+		"@mantine/dates": "^7.15.3",
 		"@mantine/hooks": "^7.15.3",
+		"@tabler/icons-react": "^7.15.3",
+		"@tanstack/react-query": "*",
 		"axios": "*",
+		"clsx": "*",
+		"dayjs": "*",
 		"react": ">=18.0.0",
 		"react-dom": ">=18.0.0",
 		"zustand": ">=5.0.0"
@@ -26,5 +31,8 @@
 		"@types/react-dom": "^18.3.1",
 		"tsup": "^8.0.2",
 		"typescript": "^5.7.2"
+	},
+	"dependencies": {
+		"mantine-datatable": "^7.15.1"
 	}
 }

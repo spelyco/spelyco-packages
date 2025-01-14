@@ -1,0 +1,3 @@
+function useStrapi() {
+	return {};
+}

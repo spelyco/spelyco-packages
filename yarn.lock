@@ -604,7 +604,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/core@npm:7.15.3":
+"@mantine/core@npm:^7.15.3":
   version: 7.15.3
   resolution: "@mantine/core@npm:7.15.3"
   dependencies:
@@ -622,7 +622,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/hooks@npm:7.15.3":
+"@mantine/dates@npm:^7.15.3":
+  version: 7.15.3
+  resolution: "@mantine/dates@npm:7.15.3"
+  dependencies:
+    clsx: "npm:^2.1.1"
+  peerDependencies:
+    "@mantine/core": 7.15.3
+    "@mantine/hooks": 7.15.3
+    dayjs: ">=1.0.0"
+    react: ^18.x || ^19.x
+    react-dom: ^18.x || ^19.x
+  checksum: 10c0/d5709c0f5fc5f911d41683357da682c055a59cefd57f653f3556bef26d74efa63e4c180952b3b9f545e55b33822914f98b97fbbb8ce0cd0dd3445e9028b718ef
+  languageName: node
+  linkType: hard
+
+"@mantine/hooks@npm:^7.15.3":
   version: 7.15.3
   resolution: "@mantine/hooks@npm:7.15.3"
   peerDependencies:
@@ -826,12 +841,18 @@ __metadata:
   dependencies:
     "@types/react": "npm:^18.3.12"
     "@types/react-dom": "npm:^18.3.1"
+    mantine-datatable: "npm:^7.15.1"
     tsup: "npm:^8.0.2"
     typescript: "npm:^5.7.2"
   peerDependencies:
     "@mantine/core": ^7.15.3
+    "@mantine/dates": ^7.15.3
     "@mantine/hooks": ^7.15.3
+    "@tabler/icons-react": ^7.15.3
+    "@tanstack/react-query": "*"
     axios: "*"
+    clsx: "*"
+    dayjs: "*"
     react: ">=18.0.0"
     react-dom: ">=18.0.0"
     zustand: ">=5.0.0"
@@ -973,6 +994,42 @@ __metadata:
   dependencies:
     "@swc/counter": "npm:^0.1.3"
   checksum: 10c0/29f5c8933a16042956f1adb7383e836ed7646cbf679826e78b53fdd0c08e8572cb42152e527b6b530a9bd1052d33d0972f90f589761ccd252c12652c9b7a72fc
+  languageName: node
+  linkType: hard
+
+"@tabler/icons-react@npm:^3.28.1":
+  version: 3.28.1
+  resolution: "@tabler/icons-react@npm:3.28.1"
+  dependencies:
+    "@tabler/icons": "npm:3.28.1"
+  peerDependencies:
+    react: ">= 16"
+  checksum: 10c0/fe8b7baaae5a2c896c519c509d3c05e83cf4ea0c5b683add200cd2c0587a66a590a3ca26f54e91a8ee2b15c519c0854651c11490c2eab8ef111cee9b8e76b3e3
+  languageName: node
+  linkType: hard
+
+"@tabler/icons@npm:3.28.1":
+  version: 3.28.1
+  resolution: "@tabler/icons@npm:3.28.1"
+  checksum: 10c0/330f738b74d203e910382725f4ff6b9c177f8738a54c71fc6e56c3204cf21749b0512148650ae85c211692c49aa5e03f09f2ea8458688309d917bb65f698dbd0
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-core@npm:5.64.1":
+  version: 5.64.1
+  resolution: "@tanstack/query-core@npm:5.64.1"
+  checksum: 10c0/89aae104b6c0568d88ca9f4de2c878d290ee296b9a2952c93145a14e36f980ad045d37e12cf6c520a5de5297fab2f01488d3936a77b6e374f28259051fe3cb30
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.64.1":
+  version: 5.64.1
+  resolution: "@tanstack/react-query@npm:5.64.1"
+  dependencies:
+    "@tanstack/query-core": "npm:5.64.1"
+  peerDependencies:
+    react: ^18 || ^19
+  checksum: 10c0/94393e72d8ed4aca112c10a5c421642fcd63e6f767ec68033e916ed66d75c9c515112942fd40e355ffa94ed41b5d48283bfa1b808aba26b4a154eedc82cd03be
   languageName: node
   linkType: hard
 
@@ -1332,6 +1389,13 @@ __metadata:
   version: 3.1.3
   resolution: "csstype@npm:3.1.3"
   checksum: 10c0/80c089d6f7e0c5b2bd83cf0539ab41474198579584fa10d86d0cafe0642202343cbc119e076a0b1aece191989477081415d66c9fefbf3c957fc2fc4b7009f248
+  languageName: node
+  linkType: hard
+
+"dayjs@npm:^1.11.13":
+  version: 1.11.13
+  resolution: "dayjs@npm:1.11.13"
+  checksum: 10c0/a3caf6ac8363c7dade9d1ee797848ddcf25c1ace68d9fe8678ecf8ba0675825430de5d793672ec87b24a69bf04a1544b176547b2539982275d5542a7955f35b7
   languageName: node
   linkType: hard
 
@@ -1887,6 +1951,18 @@ __metadata:
     promise-retry: "npm:^2.0.1"
     ssri: "npm:^12.0.0"
   checksum: 10c0/c40efb5e5296e7feb8e37155bde8eb70bc57d731b1f7d90e35a092fde403d7697c56fb49334d92d330d6f1ca29a98142036d6480a12681133a0a1453164cb2f0
+  languageName: node
+  linkType: hard
+
+"mantine-datatable@npm:^7.15.1":
+  version: 7.15.1
+  resolution: "mantine-datatable@npm:7.15.1"
+  peerDependencies:
+    "@mantine/core": ">=7.14"
+    "@mantine/hooks": ">=7.14"
+    clsx: ">=2"
+    react: ">=18.2"
+  checksum: 10c0/e66494a9bca7580ba6ed2818e0208707d609d55ec3b00e3203eba0d3c51422175f5ead188a8dcaf8990bce6c5a71d38563e38028f49ee0eb7631628f81c66e9f
   languageName: node
   linkType: hard
 
@@ -2631,6 +2707,7 @@ __metadata:
   dependencies:
     "@biomejs/biome": "npm:^1.9.4"
     "@swc/core": "npm:^1.4.0"
+    "@tanstack/react-query": "npm:^5.64.1"
     "@types/add": "npm:^2"
     add: "npm:^2.0.6"
     tsup: "npm:^8.0.2"
@@ -3072,13 +3149,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "vite-react-typescript-starter@workspace:apps/web"
   dependencies:
-    "@mantine/core": "npm:7.15.3"
-    "@mantine/hooks": "npm:7.15.3"
+    "@mantine/core": "npm:^7.15.3"
+    "@mantine/dates": "npm:^7.15.3"
+    "@mantine/hooks": "npm:^7.15.3"
     "@spelyco/react-core": "npm:*"
+    "@tabler/icons-react": "npm:^3.28.1"
     "@types/react": "npm:^18.3.12"
     "@types/react-dom": "npm:^18.3.1"
     "@vitejs/plugin-react": "npm:^4.3.4"
     axios: "npm:^1.7.9"
+    clsx: "npm:^2.1.1"
+    dayjs: "npm:^1.11.13"
     postcss: "npm:^8.4.49"
     postcss-preset-mantine: "npm:1.17.0"
     postcss-simple-vars: "npm:^7.0.1"

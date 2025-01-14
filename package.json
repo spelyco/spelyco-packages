@@ -29,6 +29,7 @@
 	},
 	"packageManager": "yarn@4.6.0",
 	"dependencies": {
+		"@tanstack/react-query": "^5.64.1",
 		"add": "^2.0.6",
 		"vite-react-typescript-starter": "workspace:^",
 		"workspace": "^0.0.1-preview.2",
