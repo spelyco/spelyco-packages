@@ -54,10 +54,20 @@ jobs:
             exit 1
           fi
 
+      - name: Install package dependencies
+        run: |
+          cd packages/${{ inputs.package_name }}
+          yarn install --immutable
+
       - name: Build package
         run: |
           cd packages/${{ inputs.package_name }}
           yarn build
+
+      - name: Check package
+        run: |
+          cd packages/${{ inputs.package_name }}
+          yarn pack --dry-run
 
       - name: Publish package
         run: |

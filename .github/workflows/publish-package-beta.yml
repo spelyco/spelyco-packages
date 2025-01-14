@@ -54,6 +54,11 @@ jobs:
             exit 1
           fi
 
+      - name: Install package dependencies
+        run: |
+          cd packages/${{ inputs.package_name }}
+          yarn install --immutable
+
       - name: Build package
         run: |
           cd packages/${{ inputs.package_name }}
@@ -63,6 +68,11 @@ jobs:
         run: |
           cd packages/${{ inputs.package_name }}
           npm version ${{ steps.package_version.outputs.version }} --no-git-tag-version
+
+      - name: Check package
+        run: |
+          cd packages/${{ inputs.package_name }}
+          yarn pack --dry-run
 
       - name: Publish package
         run: |
