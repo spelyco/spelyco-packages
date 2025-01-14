@@ -73,7 +73,7 @@ jobs:
       - name: Update package version to beta
         run: |
           cd packages/${{ inputs.package_name }}
-          yarn version --new-version ${{ steps.package_version.outputs.version }} --no-git-tag-version
+          node -e "const pkg = require('./package.json'); pkg.version = '${{ steps.package_version.outputs.version }}'; require('fs').writeFileSync('./package.json', JSON.stringify(pkg, null, '\t') + '\n')"
 
       - name: Check package
         run: |
