@@ -26,6 +26,7 @@ export function useMantineDataTable<T>({
 
 		const fetchFind = useStrapiFind<T>({
 			axios,
+			key: ["mantine-data-table", serviceName],
 			serviceName,
 			...config?.find,
 		});

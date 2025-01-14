@@ -5,6 +5,6 @@ export type UseStrapiBaseInterface = {
 	axios: AxiosInstance;
 	serviceName: string;
 	config?: AxiosRequestConfig;
-	key?: string[];
+	key: string[];
 	queryOptions?: UseQueryOptions;
 };

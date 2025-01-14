@@ -8,17 +8,5 @@ export default defineConfig({
 	sourcemap: true,
 	clean: true,
 	treeshake: true,
-	external: [
-		"react",
-		"react-dom",
-		"@mantine/core",
-		"@mantine/dates",
-		"@mantine/form",
-		"@mantine/hooks",
-		"@tanstack/react-query",
-		"axios",
-		"clsx",
-		"dayjs",
-		"zustand",
-	],
+	external: [],
 });

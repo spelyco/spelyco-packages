@@ -3,6 +3,7 @@ import {
 	MantineDataTable,
 	type MantineDataTableColumnProps,
 	type MantineDataTableProps,
+	UsersMultiSelect,
 	useMantineDataTable,
 	useMantineDataTableSearchInput,
 } from "@spelyco/react-core";
@@ -35,6 +36,7 @@ function TestPage() {
 		axios: axiosInstance,
 		config: {
 			find: {
+				key: ["mantine-data-table", "customers"],
 				config: {
 					params: {
 						filters: {
@@ -62,6 +64,7 @@ function TestPage() {
 						columnDefs={columnDefs}
 						dropdownLabel={<Text fw={"bold"}>In this view show records</Text>}
 					/>
+					<UsersMultiSelect axios={axiosInstance} />
 					<Button>Ekle</Button>
 				</MantineDataTable.Group>
 				<MantineDataTable.Content {...mantineDataTableProps} />

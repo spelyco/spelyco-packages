@@ -68,7 +68,7 @@ export function useStrapiFind<T>({
 	>);
 
 	useEffect(() => {
-		if (query.data) {
+		if (query.data && !!query.data.meta) {
 			setPage(query.data.meta.pagination.page);
 		}
 	}, [query.data]);

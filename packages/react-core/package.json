@@ -1,12 +1,10 @@
 {
 	"name": "@spelyco/react-core",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
-	"files": [
-		"dist/**"
-	],
+	"files": ["dist/**"],
 	"scripts": {
 		"build": "tsup",
 		"clean": "rm -rf dist",
@@ -27,9 +25,13 @@
 		"zustand": ">=5.0.0"
 	},
 	"devDependencies": {
+		"@types/lodash": "^4.17.14",
 		"@types/react": "^18.3.18",
 		"@types/react-dom": "^18.3.5",
 		"tsup": "^8.3.5",
 		"typescript": "^5.7.3"
+	},
+	"dependencies": {
+		"lodash": "^4.17.21"
 	}
 }
