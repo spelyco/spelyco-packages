@@ -1,11 +1,12 @@
 {
 	"name": "@spelyco/react-core",
-	"version": "1.0.1",
-	"private": false,
+	"version": "1.1.0",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
-	"files": ["dist/**"],
+	"files": [
+		"dist/**"
+	],
 	"scripts": {
 		"build": "tsup",
 		"clean": "rm -rf dist",
@@ -31,7 +32,6 @@
 		"typescript": "^5.7.2"
 	},
 	"dependencies": {
-		"@tabler/icons-react": "^2.47.0",
 		"mantine-datatable": "^7.15.1"
 	}
 }

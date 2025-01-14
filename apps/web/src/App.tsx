@@ -1,8 +1,9 @@
 import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
+import "mantine-datatable/styles.layer.css";
+
 import { SpelyStoreProvider } from "@spelyco/react-core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import "mantine-datatable/styles.layer.css";
 import { axiosInstance } from "./axios";
 import { TestPage } from "./page/test";
 import { theme } from "./theme";

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { strapiFindOne } from "../lib/strapi-find-one";
 import type { UseStrapiBaseInterface } from "../types";
 
-type UseStrapiFindOneProps = UseStrapiBaseInterface & {
+export type UseStrapiFindOneProps = UseStrapiBaseInterface & {
 	documentId: string;
 };
 

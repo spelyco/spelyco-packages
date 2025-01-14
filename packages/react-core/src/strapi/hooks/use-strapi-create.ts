@@ -2,7 +2,10 @@ import { type UseMutationOptions, useMutation } from "@tanstack/react-query";
 import { strapiCreate } from "../lib/strapi-create";
 import type { UseStrapiBaseInterface } from "../types";
 
-type UseStrapiCreateProps = Omit<UseStrapiBaseInterface, "documentId"> & {
+export type UseStrapiCreateProps = Omit<
+	UseStrapiBaseInterface,
+	"documentId"
+> & {
 	queryOptions?: Omit<
 		UseMutationOptions<
 			unknown,
