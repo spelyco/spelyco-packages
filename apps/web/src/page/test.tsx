@@ -1,8 +1,10 @@
-import { Container } from "@mantine/core";
+import { Button, Container, Text } from "@mantine/core";
 import {
 	MantineDataTable,
+	type MantineDataTableColumnProps,
 	type MantineDataTableProps,
 	useMantineDataTable,
+	useMantineDataTableSearchInput,
 } from "@spelyco/react-core";
 import { axiosInstance } from "../axios";
 
@@ -11,19 +13,22 @@ type Customer = {
 	name: string;
 };
 
+const columnDefs: MantineDataTableColumnProps[] = [
+	{
+		accessor: "id",
+		title: "ID",
+		sortable: true,
+		width: 50,
+	},
+	{
+		accessor: "name",
+		title: "Name",
+		sortable: true,
+	},
+];
+
 function TestPage() {
-	const columnDefs = [
-		{
-			accessor: "id",
-			title: "ID",
-			sortable: true,
-		},
-		{
-			accessor: "name",
-			title: "Name",
-			sortable: true,
-		},
-	];
+	const { searchInputFilters } = useMantineDataTableSearchInput();
 
 	const api = useMantineDataTable<Customer>({
 		serviceName: "customers",
@@ -32,6 +37,9 @@ function TestPage() {
 			find: {
 				config: {
 					params: {
+						filters: {
+							...searchInputFilters(),
+						},
 						pagination: {
 							pageSize: 5,
 						},
@@ -47,8 +55,17 @@ function TestPage() {
 	};
 
 	return (
-		<Container mt={"xl"}>
-			<MantineDataTable {...mantineDataTableProps} />
+		<Container size={"xl"} mt={"xl"}>
+			<MantineDataTable.Root>
+				<MantineDataTable.Group justify={"space-between"}>
+					<MantineDataTable.Filter
+						columnDefs={columnDefs}
+						dropdownLabel={<Text fw={"bold"}>In this view show records</Text>}
+					/>
+					<Button>Ekle</Button>
+				</MantineDataTable.Group>
+				<MantineDataTable.Content {...mantineDataTableProps} />
+			</MantineDataTable.Root>
 		</Container>
 	);
 }

@@ -8,7 +8,54 @@ import type {
 import type { UseStrapiFindOneProps } from "../strapi/hooks/use-strapi-find-one";
 import type { UseStrapiUpdateProps } from "../strapi/hooks/use-strapi-update";
 
-export type MantineDataTableColumnProps<T> = DataTableColumn<T>;
+type MantineDataTableColumnTypeProps =
+	| "text"
+	| "number"
+	| "date"
+	| "date-range"
+	| "boolean"
+	| "price-range"
+	| "price";
+
+export type MantineDataTableFilterOperator =
+	| "$eq"
+	| "$eqi"
+	| "$ne"
+	| "$nei"
+	| "$lt"
+	| "$lte"
+	| "$gt"
+	| "$gte"
+	| "$in"
+	| "$notIn"
+	| "$contains"
+	| "$notContains"
+	| "$containsi"
+	| "$notContainsi"
+	| "$null"
+	| "$notNull"
+	| "$between"
+	| "$startsWith"
+	| "$startsWithi"
+	| "$endsWith"
+	| "$endsWithi"
+	| "$or"
+	| "$and"
+	| "$not";
+
+export type MantineDataTableFilter = {
+	id: string;
+	field: string;
+	operator: MantineDataTableFilterOperator;
+	type: MantineDataTableColumnTypeProps;
+	value: string | number | boolean | string[] | number[] | boolean[];
+};
+
+type ExtendDataTableColumn<T = Record<string, unknown>> =
+	DataTableColumn<T> & {};
+
+export type MantineDataTableColumnProps<T = Record<string, unknown>> =
+	ExtendDataTableColumn<T>;
 
 export type MantineDataTableConfigProps = {
 	config?: {

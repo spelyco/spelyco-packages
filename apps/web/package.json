@@ -1,5 +1,5 @@
 {
-	"name": "vite-react-typescript-starter",
+	"name": "web",
 	"private": true,
 	"version": "1.0.0",
 	"type": "module",
@@ -12,9 +12,10 @@
 	"dependencies": {
 		"@mantine/core": "^7.15.3",
 		"@mantine/dates": "^7.15.3",
+		"@mantine/form": "^7.15.3",
 		"@mantine/hooks": "^7.15.3",
 		"@spelyco/react-core": "*",
-		"@tabler/icons-react": "^3.28.1",
+		"@tabler/icons-react": "^3.6.0",
 		"axios": "^1.7.9",
 		"clsx": "^2.1.1",
 		"dayjs": "^1.11.13",
