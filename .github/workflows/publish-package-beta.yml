@@ -54,6 +54,12 @@ jobs:
             exit 1
           fi
 
+      - name: Clean install
+        run: |
+          cd packages/${{ inputs.package_name }}
+          rm -rf node_modules
+          yarn cache clean
+
       - name: Install package dependencies
         run: |
           cd packages/${{ inputs.package_name }}
@@ -67,7 +73,7 @@ jobs:
       - name: Update package version to beta
         run: |
           cd packages/${{ inputs.package_name }}
-          npm version ${{ steps.package_version.outputs.version }} --no-git-tag-version
+          yarn version --new-version ${{ steps.package_version.outputs.version }} --no-git-tag-version
 
       - name: Check package
         run: |
