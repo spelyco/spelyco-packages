@@ -83,7 +83,7 @@ jobs:
       - name: Publish package
         run: |
           cd packages/${{ inputs.package_name }}
-          yarn publish --access public --tag beta
+          npm publish --access public --tag beta
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
