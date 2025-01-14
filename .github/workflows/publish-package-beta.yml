@@ -1,0 +1,74 @@
+name: Publish Package (Beta)
+
+on:
+  workflow_dispatch:
+    inputs:
+      package_name:
+        description: 'Package to publish (e.g., react-core)'
+        required: true
+        type: choice
+        options:
+          - react-core
+          - react-native-core
+          # Add other packages here
+      registry:
+        description: 'NPM Registry'
+        required: true
+        default: 'https://registry.npmjs.org'
+        type: string
+
+jobs:
+  publish-beta:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: ${{ inputs.registry }}
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Get package version
+        id: package_version
+        run: |
+          PACKAGE_VERSION=$(node -p "require('./packages/${{ inputs.package_name }}/package.json').version")
+          echo "version=${PACKAGE_VERSION}-beta" >> $GITHUB_OUTPUT
+
+      - name: Check if beta version exists
+        id: version_check
+        run: |
+          VERSION_EXISTS=$(npm view @spelyco/${{ inputs.package_name }}@${{ steps.package_version.outputs.version }} version || echo "")
+          if [ ! -z "$VERSION_EXISTS" ]; then
+            echo "::error::Version ${{ steps.package_version.outputs.version }} already exists in npm registry"
+            exit 1
+          fi
+
+      - name: Build package
+        run: |
+          cd packages/${{ inputs.package_name }}
+          yarn build
+
+      - name: Update package version to beta
+        run: |
+          cd packages/${{ inputs.package_name }}
+          npm version ${{ steps.package_version.outputs.version }} --no-git-tag-version
+
+      - name: Publish package
+        run: |
+          cd packages/${{ inputs.package_name }}
+          yarn publish --access public --tag beta
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create Git tag
+        if: success()
+        run: |
+          git tag ${{ inputs.package_name }}@${{ steps.package_version.outputs.version }}
+          git push origin ${{ inputs.package_name }}@${{ steps.package_version.outputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
