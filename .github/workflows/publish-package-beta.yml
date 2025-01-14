@@ -30,8 +30,14 @@ jobs:
           node-version: '18'
           registry-url: ${{ inputs.registry }}
 
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Yarn
+        run: corepack prepare yarn@4.6.0 --activate
+
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
 
       - name: Get package version
         id: package_version
