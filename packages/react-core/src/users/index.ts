@@ -1,4 +1,5 @@
 // Components
+export { UserRenderOption } from "./components/user-render-option";
 export { UsersMultiSelect } from "./components/users-multi-select";
 
 // Interfaces
