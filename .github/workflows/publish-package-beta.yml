@@ -30,47 +30,37 @@ jobs:
           node-version: '18'
           registry-url: ${{ inputs.registry }}
 
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Setup Yarn
-        run: corepack prepare yarn@4.6.0 --activate
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: bun install
 
       - name: Get package version
         id: package_version
         run: |
-          PACKAGE_VERSION=$(node -p "require('./packages/${{ inputs.package_name }}/package.json').version")
-          echo "version=${PACKAGE_VERSION}-beta" >> $GITHUB_OUTPUT
-
-      - name: Check if beta version exists
-        id: version_check
-        run: |
-          VERSION_EXISTS=$(npm view @spelyco/${{ inputs.package_name }}@${{ steps.package_version.outputs.version }} version || echo "")
-          if [ ! -z "$VERSION_EXISTS" ]; then
-            echo "::error::Version ${{ steps.package_version.outputs.version }} already exists in npm registry"
-            exit 1
-          fi
+          PACKAGE_VERSION=$(node -p "require('./packages/${{ inputs.package_name }}/package.json').version")-beta.$(date +'%Y%m%d%H%M%S')
+          echo "version=${PACKAGE_VERSION}" >> $GITHUB_OUTPUT
 
       - name: Clean install
         run: |
           cd packages/${{ inputs.package_name }}
           rm -rf node_modules
-          yarn cache clean
+          bun clean
 
       - name: Install package dependencies
         run: |
           cd packages/${{ inputs.package_name }}
-          yarn install --immutable
+          bun install
 
       - name: Build package
         run: |
           cd packages/${{ inputs.package_name }}
-          yarn build
+          bun run build
 
-      - name: Update package version to beta
+      - name: Update package version
         run: |
           cd packages/${{ inputs.package_name }}
           node -e "const pkg = require('./package.json'); pkg.version = '${{ steps.package_version.outputs.version }}'; require('fs').writeFileSync('./package.json', JSON.stringify(pkg, null, '\t') + '\n')"
@@ -78,7 +68,7 @@ jobs:
       - name: Check package
         run: |
           cd packages/${{ inputs.package_name }}
-          yarn pack --dry-run
+          npm pack --dry-run
 
       - name: Publish package
         run: |

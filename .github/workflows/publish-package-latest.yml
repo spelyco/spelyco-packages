@@ -30,14 +30,13 @@ jobs:
           node-version: '18'
           registry-url: ${{ inputs.registry }}
 
-      - name: Enable Corepack
-        run: corepack enable
-
-      - name: Setup Yarn
-        run: corepack prepare yarn@4.6.0 --activate
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: bun install
 
       - name: Get package version
         id: package_version
@@ -58,17 +57,17 @@ jobs:
         run: |
           cd packages/${{ inputs.package_name }}
           rm -rf node_modules
-          yarn cache clean
+          bun clean
 
       - name: Install package dependencies
         run: |
           cd packages/${{ inputs.package_name }}
-          yarn install --immutable
+          bun install
 
       - name: Build package
         run: |
           cd packages/${{ inputs.package_name }}
-          yarn build
+          bun run build
 
       - name: Update package version
         run: |
@@ -78,7 +77,7 @@ jobs:
       - name: Check package
         run: |
           cd packages/${{ inputs.package_name }}
-          yarn pack --dry-run
+          npm pack --dry-run
 
       - name: Publish package
         run: |

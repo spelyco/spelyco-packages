@@ -1,6 +1,6 @@
 {
 	"name": "@spelyco/react-core",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
@@ -35,5 +35,6 @@
 	},
 	"dependencies": {
 		"lodash": "^4.17.21"
-	}
+	},
+	"packageManager": "bun@1.1.43"
 }

@@ -26,8 +26,8 @@
 	"dependencies": {
 		"web": "workspace:^"
 	},
-	"packageManager": "yarn@4.6.0",
 	"engines": {
 		"node": ">=18"
-	}
+	},
+	"packageManager": "bun@1.1.43"
 }
