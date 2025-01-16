@@ -1,5 +1,5 @@
 import { Stack } from "@mantine/core";
-import { MultiSelect, UserRenderOption } from "@spelyco/react-core";
+import { MultiSelect, Select, UserRenderOption } from "@spelyco/react-core";
 import { axiosInstance } from "../axios";
 
 type Data = {
@@ -16,6 +16,19 @@ export default function MultiSelectPage() {
 				serviceName="customers"
 				queryKey={["customers"]}
 				label="Customers"
+				data={(data: Data) => ({
+					label: data.documentId,
+					value: data.id.toString(),
+					data,
+				})}
+				renderOption={(item) => <UserRenderOption {...item} />}
+			/>
+
+			<Select
+				axios={axiosInstance}
+				serviceName="customers"
+				queryKey={["customers"]}
+				label="Select Customers"
 				data={(data: Data) => ({
 					label: data.documentId,
 					value: data.id.toString(),

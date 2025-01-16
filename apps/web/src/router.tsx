@@ -1,11 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "./components/layout";
+import { DataTablePage } from "./pages/data-table";
 import HomePage from "./pages/home";
 import MultiSelectPage from "./pages/multi-select";
 
 const pages = {
 	home: HomePage,
 	"multi-select": MultiSelectPage,
+	"data-table": DataTablePage,
 };
 
 const routes = Object.entries(pages).map(([name, Component]) => ({
@@ -28,5 +30,9 @@ export const data = [
 	{
 		label: "Multi Select",
 		link: "/multi-select",
+	},
+	{
+		label: "Data Table",
+		link: "/data-table",
 	},
 ];

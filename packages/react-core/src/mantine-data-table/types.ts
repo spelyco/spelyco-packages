@@ -17,39 +17,31 @@ type MantineDataTableColumnTypeProps =
 	| "price-range"
 	| "price";
 
-export type MantineDataTableFilterOperator =
+export type FilterOperator =
 	| "$eq"
-	| "$eqi"
 	| "$ne"
-	| "$nei"
 	| "$lt"
 	| "$lte"
 	| "$gt"
 	| "$gte"
-	| "$in"
-	| "$notIn"
 	| "$contains"
-	| "$notContains"
-	| "$containsi"
-	| "$notContainsi"
-	| "$null"
-	| "$notNull"
-	| "$between"
-	| "$startsWith"
-	| "$startsWithi"
-	| "$endsWith"
-	| "$endsWithi"
-	| "$or"
-	| "$and"
-	| "$not";
+	| "$notContains";
 
-export type MantineDataTableFilter = {
+export type LogicalOperator = "$and" | "$or";
+
+export interface MantineDataTableFilter {
 	id: string;
+	type: "string" | "number" | "date" | "boolean";
 	field: string;
-	operator: MantineDataTableFilterOperator;
-	type: MantineDataTableColumnTypeProps;
-	value: string | number | boolean | string[] | number[] | boolean[];
-};
+	operator: FilterOperator;
+	value: unknown;
+}
+
+export interface MantineDataTableFilterGroup {
+	id: string;
+	logicalOperator: LogicalOperator;
+	filters: MantineDataTableFilter[];
+}
 
 type ExtendDataTableColumn<T = Record<string, unknown>> =
 	DataTableColumn<T> & {};

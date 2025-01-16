@@ -1,8 +1,8 @@
-import { MultiSelect as MantineMultiSelect } from "@mantine/core";
+import { Select as MantineSelect } from "@mantine/core";
 import { useSelectFind } from "../hooks/use-select-find";
-import type { MultiSelectProps } from "../types";
+import type { SelectProps } from "../types";
 
-export function MultiSelect<T>({
+export function Select<T>({
 	queryKey,
 	axios,
 	config,
@@ -11,7 +11,7 @@ export function MultiSelect<T>({
 	data,
 	renderOption,
 	...props
-}: MultiSelectProps<T>) {
+}: SelectProps<T>) {
 	const { data: dataFind } = useSelectFind<T>({
 		axios,
 		key: queryKey,
@@ -21,7 +21,7 @@ export function MultiSelect<T>({
 	});
 
 	return (
-		<MantineMultiSelect
+		<MantineSelect
 			{...props}
 			data={dataFind?.data.map((item) => data(item))}
 			renderOption={renderOption}

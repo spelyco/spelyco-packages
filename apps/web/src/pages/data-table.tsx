@@ -1,34 +1,20 @@
 import { Button, Container, Text } from "@mantine/core";
 import {
 	MantineDataTable,
-	type MantineDataTableColumnProps,
 	type MantineDataTableProps,
-	UsersMultiSelect,
 	useMantineDataTable,
 	useMantineDataTableSearchInput,
 } from "@spelyco/react-core";
+import { IconPlus } from "@tabler/icons-react";
 import { axiosInstance } from "../axios";
+import { columnDefs } from "../modules/data-table/mock";
 
 type Customer = {
 	id: number;
 	name: string;
 };
 
-const columnDefs: MantineDataTableColumnProps[] = [
-	{
-		accessor: "id",
-		title: "ID",
-		sortable: true,
-		width: 50,
-	},
-	{
-		accessor: "name",
-		title: "Name",
-		sortable: true,
-	},
-];
-
-function TestPage() {
+function DataTablePage() {
 	const { searchInputFilters } = useMantineDataTableSearchInput();
 
 	const api = useMantineDataTable<Customer>({
@@ -62,10 +48,14 @@ function TestPage() {
 				<MantineDataTable.Group justify={"space-between"}>
 					<MantineDataTable.Filter
 						columnDefs={columnDefs}
+						button={{
+							variant: "default",
+						}}
 						dropdownLabel={<Text fw={"bold"}>In this view show records</Text>}
 					/>
-					<UsersMultiSelect axios={axiosInstance} />
-					<Button>Ekle</Button>
+					<Button variant="default" leftSection={<IconPlus size={16} />}>
+						Ekle
+					</Button>
 				</MantineDataTable.Group>
 				<MantineDataTable.Content {...mantineDataTableProps} />
 			</MantineDataTable.Root>
@@ -73,4 +63,4 @@ function TestPage() {
 	);
 }
 
-export { TestPage };
+export { DataTablePage };
