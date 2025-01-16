@@ -1,5 +1,6 @@
 import {
 	ActionIcon,
+	Badge,
 	type BoxProps,
 	Button,
 	type ButtonProps,
@@ -8,6 +9,7 @@ import {
 	Group,
 	type GroupProps,
 	Menu,
+	NumberInput,
 	Paper,
 	Popover,
 	type PopoverDropdownProps,
@@ -18,10 +20,16 @@ import {
 	TextInput,
 	rem,
 } from "@mantine/core";
-import { IconFilter, IconMinus, IconPlus } from "@tabler/icons-react";
+import { DateInput } from "@mantine/dates";
+import { IconMenu3, IconMinus, IconPlus } from "@tabler/icons-react";
 import type { ReactNode } from "react";
 import { useMantineDataTableFilter } from "../hooks/use-mantine-data-table-filter";
-import type { MantineDataTableColumnProps } from "../types";
+import type {
+	FilterOperator,
+	MantineDataTableColumnProps,
+	MantineDataTableFilterGroup,
+	MantineDataTableFilterTypeProps,
+} from "../types";
 
 type MantineDataTableFilterProps = {
 	columnDefs: MantineDataTableColumnProps[];
@@ -36,21 +44,33 @@ type MantineDataTableFilterProps = {
 	addFilterButtonLabel?: string;
 	clearFilterButton?: ButtonProps;
 	clearFilterButtonLabel?: string;
+	dictionary?: {
+		buttonLabel: string;
+		headerLabel: string;
+		footerLabel: string;
+		addFilterButtonLabel: string;
+		clearFilterButtonLabel: string;
+		noFiltersAppliedLabel: string;
+		matchAllLabel: string;
+		matchAnyLabel: string;
+		selectColumnLabel: string;
+		selectOperatorLabel: string;
+	};
+	onConfirm?: (filter: Record<string, unknown>) => void;
 };
 
 export function MantineDataTableFilter({
 	columnDefs,
 	button,
-	label = "Filter",
 	popover,
 	dropdown,
 	dropdownLabel,
 	dropdownHeader,
 	dropdownFooter,
 	addFilterButton,
-	addFilterButtonLabel = "Add filter",
+	dictionary,
 	clearFilterButton,
-	clearFilterButtonLabel = "Clear all filters",
+	onConfirm,
 }: MantineDataTableFilterProps) {
 	const {
 		filterGroups,
@@ -61,11 +81,70 @@ export function MantineDataTableFilter({
 		open,
 		opened,
 		removeFilter,
+		updateFilter,
+		getQueryParams,
 	} = useMantineDataTableFilter({
 		columnDefs,
 	});
 
-	console.log("filterGroups", filterGroups);
+	const mantineDataTableTypeComponent = (
+		group: MantineDataTableFilterGroup,
+		filter: MantineDataTableFilterTypeProps,
+	) => {
+		const defaultProps = {
+			size: "xs",
+			flex: 1,
+		};
+
+		switch (filter.type) {
+			case "number":
+				return (
+					<NumberInput
+						{...defaultProps}
+						value={(filter.value as string) ?? ""}
+						onChange={(value) => {
+							updateFilter(group.id, filter.id, {
+								value: value ?? "",
+								type: filter.type,
+								field: filter.field,
+								operator: filter.operator,
+							});
+						}}
+					/>
+				);
+			case "date":
+				return (
+					<DateInput
+						size="xs"
+						flex={1}
+						value={filter.value ? new Date(filter.value as string) : null}
+						onChange={(value) => {
+							updateFilter(group.id, filter.id, {
+								value: value?.toISOString() ?? "",
+								type: filter.type,
+								field: filter.field,
+								operator: filter.operator,
+							});
+						}}
+					/>
+				);
+			default:
+				return (
+					<TextInput
+						{...defaultProps}
+						value={(filter.value as string) ?? ""}
+						onChange={(e) => {
+							updateFilter(group.id, filter.id, {
+								value: e.currentTarget.value,
+								type: filter.type,
+								field: filter.field,
+								operator: filter.operator,
+							});
+						}}
+					/>
+				);
+		}
+	};
 
 	return (
 		<Popover
@@ -86,10 +165,17 @@ export function MantineDataTableFilter({
 			<Popover.Target>
 				<Button
 					onClick={open}
-					leftSection={<IconFilter size={16} />}
+					leftSection={<IconMenu3 size={16} />}
+					rightSection={
+						filterGroups.length > 0 && (
+							<Badge size="xs" circle>
+								{filterGroups.length}
+							</Badge>
+						)
+					}
 					{...button}
 				>
-					{label}
+					{dictionary?.buttonLabel ?? "Filter"}
 				</Button>
 			</Popover.Target>
 			<Popover.Dropdown p={0} {...dropdown}>
@@ -97,11 +183,21 @@ export function MantineDataTableFilter({
 					<>
 						<Group p="xs" justify="space-between" {...dropdownHeader}>
 							{dropdownLabel}
-							<CloseButton onClick={close} />
+							<CloseButton
+								onClick={() => {
+									onConfirm?.(getQueryParams());
+									close();
+								}}
+							/>
 						</Group>
 						<Divider />
 					</>
 					<Stack px="xl" py={"sm"} gap={"xs"}>
+						{!filterGroups.length && (
+							<Text size="sm" c="dimmed">
+								{dictionary?.noFiltersAppliedLabel ?? "No filters applied"}
+							</Text>
+						)}
 						{filterGroups.map((group) => (
 							<Paper key={group.id} withBorder p={"sm"}>
 								<Stack gap="xs">
@@ -116,10 +212,10 @@ export function MantineDataTableFilter({
 											variant="white"
 											onClick={() =>
 												addFilter(group.id, {
-													field: "name",
-													type: "string",
+													field: "id",
+													type: "number",
 													operator: "$eq",
-													value: "",
+													value: null,
 												})
 											}
 										>
@@ -133,11 +229,26 @@ export function MantineDataTableFilter({
 												size="xs"
 												flex={1}
 												placeholder="Select column"
+												value={filter.field}
+												onChange={(value) => {
+													if (value) {
+														const findColumn = columnDefs.find(
+															(column) => column.accessor === value,
+														);
+														updateFilter(group.id, filter.id, {
+															field: value,
+															type: findColumn?.type ?? "text",
+															operator: "$eq",
+															value: null,
+														});
+													}
+												}}
 												data={columnDefs.map((column) => ({
 													value: column.accessor.toString(),
 													label:
 														column.title?.toString() ??
 														column.accessor.toString(),
+													type: column.type,
 												}))}
 											/>
 											<Select
@@ -178,8 +289,19 @@ export function MantineDataTableFilter({
 														label: "Does Not Contain",
 													},
 												]}
+												value={filter.operator}
+												onChange={(value) => {
+													if (value) {
+														updateFilter(group.id, filter.id, {
+															operator: value as FilterOperator,
+															type: filter.type,
+															field: filter.field,
+															value: filter.value,
+														});
+													}
+												}}
 											/>
-											<TextInput size="xs" flex={1} placeholder="Enter value" />
+											{mantineDataTableTypeComponent(group, filter)}
 											<ActionIcon
 												size={"sm"}
 												variant="white"
@@ -203,15 +325,15 @@ export function MantineDataTableFilter({
 									leftSection={<IconPlus size={16} />}
 									{...addFilterButton}
 								>
-									{addFilterButtonLabel}
+									{dictionary?.addFilterButtonLabel ?? "Add filter"}
 								</Button>
 							</Menu.Target>
 							<Menu.Dropdown>
 								<Menu.Item onClick={() => addFilterGroup("$and")}>
-									Match All (AND)
+									{dictionary?.matchAllLabel ?? "Match All (AND)"}
 								</Menu.Item>
 								<Menu.Item onClick={() => addFilterGroup("$or")}>
-									Match Any (OR)
+									{dictionary?.matchAnyLabel ?? "Match Any (OR)"}
 								</Menu.Item>
 							</Menu.Dropdown>
 						</Menu>
@@ -220,7 +342,7 @@ export function MantineDataTableFilter({
 							{...clearFilterButton}
 							onClick={clearFilters}
 						>
-							{clearFilterButtonLabel}
+							{dictionary?.clearFilterButtonLabel ?? "Clear all filters"}
 						</Button>
 					</Group>
 				</Stack>

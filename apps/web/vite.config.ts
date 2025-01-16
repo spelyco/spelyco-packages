@@ -6,10 +6,15 @@ export default defineConfig({
 	plugins: [react()],
 	server: {
 		// HMR için gerekli
-		hmr: true,
+		hmr: {
+			clientPort: 24678,
+			port: 24678,
+		},
 		// Watch options
 		watch: {
 			usePolling: true,
 		},
+		port: 3000, // Ana uygulama portu
+		strictPort: true, // Port kullanımdaysa hata ver
 	},
 });

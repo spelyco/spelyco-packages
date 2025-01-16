@@ -4,6 +4,7 @@ import type { MantineDataTableProps } from "../types";
 export function MantineDataTable<T>({
 	columns,
 	api,
+	...props
 }: MantineDataTableProps<T>) {
 	const { fetchFind } = api;
 	const { page, setPage, sortStatus, setSortStatus } = fetchFind.helper;
@@ -19,16 +20,13 @@ export function MantineDataTable<T>({
 			page={page}
 			totalRecords={fetchFind.data?.meta.pagination.total ?? 0}
 			recordsPerPage={fetchFind.data?.meta.pagination.pageSize ?? 10}
-			onPageChange={(nextPage) => {
-				setPage(nextPage);
-			}}
+			onPageChange={setPage}
 			fetching={fetchFind.isLoading || fetchFind.isPending}
 			records={fetchFind.data?.data ?? []}
 			columns={columns}
-			onSortStatusChange={(nextSortStatus) => {
-				setSortStatus(nextSortStatus);
-			}}
+			onSortStatusChange={setSortStatus}
 			sortStatus={sortStatus}
+			{...(({ customLoader, ...rest }) => rest)(props)}
 		/>
 	);
 }

@@ -2,8 +2,8 @@ import { useDisclosure, useListState } from "@mantine/hooks";
 import type {
 	LogicalOperator,
 	MantineDataTableColumnProps,
-	MantineDataTableFilter,
 	MantineDataTableFilterGroup,
+	MantineDataTableFilterTypeProps,
 } from "../types";
 
 type MantineDataTableFilterProps = {
@@ -28,7 +28,7 @@ export function useMantineDataTableFilter({
 
 	const addFilter = (
 		groupId: string,
-		filter: Omit<MantineDataTableFilter, "id">,
+		filter: Omit<MantineDataTableFilterTypeProps, "id">,
 	): void => {
 		groupHandlers.setState((prevGroups) =>
 			prevGroups.map((group) => {
@@ -57,6 +57,32 @@ export function useMantineDataTableFilter({
 						return group;
 					})
 					.filter((group) => group.filters.length > 0), // Remove empty groups
+		);
+	};
+
+	const updateFilter = (
+		groupId: string,
+		filterId: string,
+		filter: Omit<MantineDataTableFilterTypeProps, "id">,
+	): void => {
+		groupHandlers.setState((prevGroups) =>
+			prevGroups.map((group) => {
+				if (group.id === groupId) {
+					return {
+						...group,
+						filters: group.filters.map((f) => {
+							if (f.id === filterId) {
+								return {
+									...f,
+									...filter,
+								};
+							}
+							return f;
+						}),
+					};
+				}
+				return group;
+			}),
 		);
 	};
 
@@ -90,6 +116,7 @@ export function useMantineDataTableFilter({
 	return {
 		filterGroups,
 		addFilterGroup,
+		updateFilter,
 		addFilter,
 		removeFilter,
 		clearFilters,

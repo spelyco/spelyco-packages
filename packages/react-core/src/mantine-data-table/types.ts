@@ -1,4 +1,4 @@
-import type { DataTableColumn } from "mantine-datatable";
+import type { DataTableColumn, DataTableProps } from "mantine-datatable";
 import type { UseStrapiCreateProps } from "../strapi/hooks/use-strapi-create";
 import type { UseStrapiDeleteProps } from "../strapi/hooks/use-strapi-delete";
 import type {
@@ -8,14 +8,7 @@ import type {
 import type { UseStrapiFindOneProps } from "../strapi/hooks/use-strapi-find-one";
 import type { UseStrapiUpdateProps } from "../strapi/hooks/use-strapi-update";
 
-type MantineDataTableColumnTypeProps =
-	| "text"
-	| "number"
-	| "date"
-	| "date-range"
-	| "boolean"
-	| "price-range"
-	| "price";
+type MantineDataTableColumnTypeProps = "text" | "number" | "date" | "boolean";
 
 export type FilterOperator =
 	| "$eq"
@@ -29,9 +22,9 @@ export type FilterOperator =
 
 export type LogicalOperator = "$and" | "$or";
 
-export interface MantineDataTableFilter {
+export interface MantineDataTableFilterTypeProps {
 	id: string;
-	type: "string" | "number" | "date" | "boolean";
+	type: MantineDataTableColumnTypeProps;
 	field: string;
 	operator: FilterOperator;
 	value: unknown;
@@ -40,11 +33,12 @@ export interface MantineDataTableFilter {
 export interface MantineDataTableFilterGroup {
 	id: string;
 	logicalOperator: LogicalOperator;
-	filters: MantineDataTableFilter[];
+	filters: MantineDataTableFilterTypeProps[];
 }
 
-type ExtendDataTableColumn<T = Record<string, unknown>> =
-	DataTableColumn<T> & {};
+type ExtendDataTableColumn<T = Record<string, unknown>> = DataTableColumn<T> & {
+	type: MantineDataTableColumnTypeProps;
+};
 
 export type MantineDataTableColumnProps<T = Record<string, unknown>> =
 	ExtendDataTableColumn<T>;
@@ -62,7 +56,7 @@ export type MantineDataTableConfigProps = {
 export type MantineDataTableProps<T> = {
 	columns: MantineDataTableColumnProps<T>[];
 	api: UseMantineDataTableResult<T>;
-};
+} & DataTableProps<T>;
 
 export type UseMantineDataTableProps = MantineDataTableConfigProps;
 
