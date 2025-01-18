@@ -34,7 +34,7 @@ export function useStrapiFind<T>({
 	const [page, setPage] = useState(1);
 
 	const [sortStatus, setSortStatus] = useState<DataTableSortStatus<T>>({
-		columnAccessor: "id",
+		columnAccessor: "createdAt",
 		direction: "desc",
 	});
 
@@ -54,7 +54,7 @@ export function useStrapiFind<T>({
 					...config?.params,
 					pagination: {
 						page: page,
-						pageSize: config?.params?.pagination?.pageSize,
+						pageSize: config?.params?.pagination?.pageSize ?? 25,
 					},
 					sort: `${sortStatus.columnAccessor.toString()}:${sortStatus.direction}`,
 				},

@@ -1,7 +1,12 @@
+import { modals } from "@mantine/modals";
 import type { AxiosInstance } from "axios";
-import { useStrapiFind } from "../../strapi";
+import { useEffect } from "react";
+import { useStrapiDelete, useStrapiFind } from "../../strapi";
 import type { UseStrapiFindResult } from "../../strapi/hooks/use-strapi-find";
-import type { MantineDataTableConfigProps } from "../types";
+import type {
+	MantineDataTableConfigProps,
+	MantineDataTableDeleteConfirmProps,
+} from "../types";
 
 type UseMantineDataTableProps = MantineDataTableConfigProps & {
 	serviceName: string;
@@ -10,6 +15,17 @@ type UseMantineDataTableProps = MantineDataTableConfigProps & {
 
 export type UseMantineDataTableResult<T> = {
 	fetchFind: UseStrapiFindResult<T>;
+	handleDeleteItemWithModal: (
+		documentId: string,
+		{
+			title,
+			message,
+			confirmLabel,
+			cancelLabel,
+			onSuccess,
+			onError,
+		}: MantineDataTableDeleteConfirmProps,
+	) => void;
 };
 
 export function useMantineDataTable<T>({
@@ -49,18 +65,54 @@ export function useMantineDataTable<T>({
 		// 	serviceName,
 		// 	...config?.update,
 		// });
-		// const mutateDelete = useStrapiDelete<T>({
-		// 	axios,
-		// 	serviceName,
-		// 	...config?.delete,
-		// });
+
+		const mutateDelete = useStrapiDelete({
+			axios,
+			serviceName,
+			key: ["mantine-data-table", serviceName],
+			...config?.delete,
+		});
+
+		const handleDeleteItemWithModal = (
+			documentId: string,
+			{
+				title,
+				message,
+				confirmLabel,
+				cancelLabel,
+				onSuccess,
+				onError,
+			}: MantineDataTableDeleteConfirmProps,
+		) => {
+			modals.openConfirmModal({
+				title,
+				children: message,
+				labels: {
+					confirm: confirmLabel,
+					cancel: cancelLabel,
+				},
+				onConfirm: () => {
+					mutateDelete.mutate(documentId);
+					onSuccess();
+				},
+				onCancel: () => {
+					onError();
+				},
+			});
+		};
+
+		useEffect(() => {
+			if (mutateDelete.isSuccess) {
+				fetchFind.refetch();
+			}
+		}, [mutateDelete.isSuccess, fetchFind.refetch]);
 
 		return {
 			fetchFind,
+			handleDeleteItemWithModal,
 			// fetchFindOne,
 			// mutateCreate,
 			// mutateUpdate,
-			// mutateDelete,
 		};
 	} catch (error) {
 		console.error(error);

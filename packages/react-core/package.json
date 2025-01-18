@@ -1,6 +1,6 @@
 {
 	"name": "@spelyco/react-core",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
@@ -17,6 +17,7 @@
 		"@mantine/dates": "^7.16.*",
 		"@mantine/form": "^7.16.*",
 		"@mantine/hooks": "^7.16.*",
+		"@mantine/modals": "^7.16.*",
 		"@tabler/icons-react": "^3.28.1",
 		"@tanstack/react-query": "*",
 		"axios": "*",

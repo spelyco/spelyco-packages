@@ -14,7 +14,7 @@ export default defineConfig({
 		watch: {
 			usePolling: true,
 		},
-		port: 3000, // Ana uygulama portu
+		port: 3005, // Ana uygulama portu
 		strictPort: true, // Port kullanımdaysa hata ver
 	},
 });

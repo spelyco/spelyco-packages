@@ -8,6 +8,8 @@ export const columnDefs: MantineDataTableColumnProps[] = [
 		accessor: "id",
 		title: "#",
 		sortable: false,
+		width: 40,
+		textAlign: "center",
 		type: "number",
 	},
 	{

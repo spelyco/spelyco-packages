@@ -8,6 +8,15 @@ import type {
 import type { UseStrapiFindOneProps } from "../strapi/hooks/use-strapi-find-one";
 import type { UseStrapiUpdateProps } from "../strapi/hooks/use-strapi-update";
 
+export type MantineDataTableDeleteConfirmProps = {
+	title: string;
+	message: string;
+	confirmLabel: string;
+	cancelLabel: string;
+	onSuccess: () => void;
+	onError: () => void;
+};
+
 type MantineDataTableColumnTypeProps = "text" | "number" | "date" | "boolean";
 
 export type FilterOperator =
@@ -53,9 +62,14 @@ export type MantineDataTableConfigProps = {
 	};
 };
 
+export type MantineDataTableColumnRowMenuLeftRightProps<T> =
+	MantineDataTableColumnProps<T>;
+
 export type MantineDataTableProps<T> = {
 	columns: MantineDataTableColumnProps<T>[];
 	api: UseMantineDataTableResult<T>;
+	leftColumn?: MantineDataTableColumnRowMenuLeftRightProps<T>;
+	rightColumn?: MantineDataTableColumnRowMenuLeftRightProps<T>;
 } & DataTableProps<T>;
 
 export type UseMantineDataTableProps = MantineDataTableConfigProps;
