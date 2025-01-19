@@ -18,6 +18,8 @@
 		"@mantine/form": "^7.16.*",
 		"@mantine/hooks": "^7.16.*",
 		"@mantine/modals": "^7.16.*",
+		"@mantine/notifications": "^7.16.*",
+		"@mantine/dropzone": "^7.16.*",
 		"@tabler/icons-react": "^3.28.1",
 		"@tanstack/react-query": "*",
 		"axios": "*",

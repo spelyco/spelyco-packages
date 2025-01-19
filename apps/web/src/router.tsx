@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "./components/layout";
+import { AssetPicker } from "./pages/asset-picker";
 import { DataTablePage } from "./pages/data-table";
 import HomePage from "./pages/home";
 import MultiSelectPage from "./pages/multi-select";
@@ -8,6 +9,7 @@ const pages = {
 	home: HomePage,
 	"multi-select": MultiSelectPage,
 	"data-table": DataTablePage,
+	"asset-picker": AssetPicker,
 };
 
 const routes = Object.entries(pages).map(([name, Component]) => ({
@@ -34,5 +36,9 @@ export const data = [
 	{
 		label: "Data Table",
 		link: "/data-table",
+	},
+	{
+		label: "Asset Picker",
+		link: "/asset-picker",
 	},
 ];
