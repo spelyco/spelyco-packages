@@ -1,0 +1,46 @@
+{
+  "name": "@spelyco/strapi-core",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "clean": "rm -rf dist",
+    "develop": "tsup --watch"
+  },
+  "strapi": {
+    "name": "spelyco-strapi-core",
+    "displayName": "Spelyco Core Plugin",
+    "description": "Core functionality plugin for Strapi",
+    "kind": "plugin"
+  },
+  "peerDependencies": {
+    "koa": "2.15.2",
+    "@strapi/strapi": "^4.20.0",
+    "@strapi/admin": "^4.20.0",
+    "@strapi/design-system": "^1.13.0",
+    "@strapi/helper-plugin": "^4.20.0",
+    "@strapi/icons": "^1.13.0",
+    "@strapi/utils": "^4.20.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^5.3.4",
+    "styled-components": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/styled-components": "^5.1.34",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "packageManager": "bun@1.1.43"
+}

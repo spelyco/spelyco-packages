@@ -10,6 +10,7 @@ on:
         options:
           - react-core
           - react-native-core
+          - strapi-core
           # Add other packages here
       registry:
         description: 'NPM Registry'
