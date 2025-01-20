@@ -1,19 +1,31 @@
-import { useQuery } from "@tanstack/react-query";
+import { useThrottledValue } from "@mantine/hooks";
+import { useState } from "react";
+import { useStrapiFind } from "../../strapi";
+import type { MediaInterface } from "../interfaces/media-interface";
 import type { MediaModalHooksProps } from "../types";
 
-const SERVICE_NAME = "upload";
-
 export function useMediaModal({ accept, axios, prefix }: MediaModalHooksProps) {
-	const mediaFind = useQuery({
-		queryKey: [SERVICE_NAME, prefix, accept.join(",")],
-		queryFn: async () => {
-			const req = await axios.get("/api/upload/files", {});
+	const [searchValue, setSearchValue] = useState("");
+	const throttledValue = useThrottledValue(searchValue, 1500);
 
-			return req;
+	const mediaFind = useStrapiFind<MediaInterface>({
+		axios,
+		key: ["medias", prefix, accept.join(","), throttledValue],
+		serviceName: "spelyco-core/medias",
+		config: {
+			params: {
+				filters: {
+					name: {
+						$containsi: throttledValue,
+					},
+				},
+			},
 		},
 	});
 
 	return {
 		mediaFind,
+		searchValue,
+		setSearchValue,
 	};
 }

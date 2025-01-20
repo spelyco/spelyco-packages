@@ -1,7 +1,18 @@
-import { Button, Group, LoadingOverlay, Modal, TextInput } from "@mantine/core";
+import {
+	Box,
+	Button,
+	Checkbox,
+	Group,
+	LoadingOverlay,
+	Modal,
+	Paper,
+	SimpleGrid,
+	TextInput,
+} from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 import { useMediaModal } from "../hooks/use-media-modal";
 import type { MediaModalProps } from "../types";
+import { MediaModalCard } from "./media-modal-card";
 
 export function MediaModal({
 	accept,
@@ -9,7 +20,7 @@ export function MediaModal({
 	axios,
 	...props
 }: MediaModalProps) {
-	const { mediaFind } = useMediaModal({
+	const { mediaFind, searchValue, setSearchValue } = useMediaModal({
 		axios,
 		prefix,
 		accept,
@@ -25,6 +36,8 @@ export function MediaModal({
 							placeholder="Dosya Ara"
 							size="xs"
 							flex={1}
+							value={searchValue}
+							onChange={(e) => setSearchValue(e.target.value)}
 							leftSection={<IconSearch size={16} />}
 						/>
 						<Group flex={1} justify="flex-end">
@@ -37,7 +50,18 @@ export function MediaModal({
 				</Modal.Header>
 				<Modal.Body style={{ position: "relative" }}>
 					<LoadingOverlay visible={mediaFind.isPending} />
-					<div>Header</div>
+					<Box p={5}>
+						<SimpleGrid cols={4}>
+							{mediaFind.data?.data.map((media) => (
+								<Checkbox.Card key={media.documentId}>
+									<Paper withBorder>
+										<Checkbox.Indicator pos={"absolute"} top={10} left={10} />
+										<MediaModalCard axios={axios} media={media} />
+									</Paper>
+								</Checkbox.Card>
+							))}
+						</SimpleGrid>
+					</Box>
 				</Modal.Body>
 			</Modal.Content>
 		</Modal.Root>
