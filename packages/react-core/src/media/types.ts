@@ -1,4 +1,4 @@
-import type { SelectProps } from "@mantine/core";
+import type { ModalProps, SelectProps } from "@mantine/core";
 import type { AxiosInstance } from "axios";
 
 // Base (for Select, MultiSelect) component props
@@ -11,4 +11,9 @@ export type MediaBaseProps = {
 // Extension Type
 export type MediaExtensionAcceptType = "image" | "file" | "audio" | "video";
 
+// Select Component Props
 export type MediaSelectProps = Omit<SelectProps, "accept"> & MediaBaseProps;
+
+// Modal Component Props
+export type MediaModalProps = MediaBaseProps & ModalProps & {};
+export type MediaModalHooksProps = MediaBaseProps;

@@ -5,6 +5,7 @@ import { axiosInstance } from "../axios";
 export function AssetPicker() {
 	return (
 		<Stack>
+			<div>Hello World</div>
 			<MediaSelect
 				accept={["image"]}
 				label="Asset Single!"

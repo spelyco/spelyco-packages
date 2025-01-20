@@ -1,5 +1,5 @@
-// Components
-export { MediaSelect } from "./components/media-select";
+// Layouts
+export { MediaSelect } from "./layouts/media-select";
 
 // Interfaces
 export type { MediaInterface } from "./interfaces/media-interface";
