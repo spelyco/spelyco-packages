@@ -15,8 +15,8 @@ export type MediaExtensionAcceptType = "image" | "file" | "audio" | "video";
 export type MediaSelectProps = MediaBaseProps &
 	GetInputPropsReturnType & {
 		type: "checkbox" | "radio";
-		value: number | number[];
-		onChange: (value: number | number[]) => void;
+		value: number | number[] | null;
+		onChange: (value: number | number[] | null) => void;
 		dictionary?: MediaDictionary;
 		maxSize?: number;
 	};
@@ -26,8 +26,8 @@ export type MediaModalProps = MediaBaseProps & {
 	type: "checkbox" | "radio";
 	opened: boolean;
 	onClose: () => void;
-	value: number | number[];
-	onChange: (value: number | number[]) => void;
+	value: number | number[] | null;
+	onChange: (value: number | number[] | null) => void;
 	dictionary?: MediaDictionary;
 	maxSize?: number;
 };

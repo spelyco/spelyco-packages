@@ -3,8 +3,8 @@ import type { PropsWithChildren } from "react";
 
 type MediaModalHtmlInputProps = PropsWithChildren & {
 	type: "checkbox" | "radio";
-	value: number | number[];
-	onChange: (value: number | number[]) => void;
+	value: number | number[] | null;
+	onChange: (value: number | number[] | null) => void;
 };
 
 export function MediaModalHtmlInput({
@@ -27,7 +27,7 @@ export function MediaModalHtmlInput({
 	}
 	return (
 		<RadioGroup
-			value={value.toString()}
+			value={value?.toString()}
 			onChange={(value) => {
 				onChange(Number.parseInt(value));
 			}}

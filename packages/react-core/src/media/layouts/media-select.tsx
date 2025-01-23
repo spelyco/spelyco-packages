@@ -54,10 +54,13 @@ export function MediaSelect({
 					</Button>
 				</Group>
 
-				<MediaModalPreview
-					axios={axios}
-					items={Array.isArray(prepareValue) ? prepareValue : [prepareValue]}
-				/>
+				{((Array.isArray(prepareValue) && prepareValue.length > 0) ||
+					(typeof prepareValue === "number" && prepareValue > 0)) && (
+					<MediaModalPreview
+						axios={axios}
+						items={Array.isArray(prepareValue) ? prepareValue : [prepareValue]}
+					/>
+				)}
 			</Stack>
 		</>
 	);

@@ -40,7 +40,7 @@ export function MediaModal({
 	});
 	const isMobile = useMediaQuery("(max-width: 50em)");
 
-	const field = useField<number | number[]>({
+	const field = useField<number | number[] | null>({
 		initialValue: value,
 	});
 

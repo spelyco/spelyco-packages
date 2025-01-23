@@ -30,6 +30,9 @@ export function MediaModalPreview({ items, axios }: MediaModalPreviewProps) {
 				},
 			},
 		},
+		queryOptions: {
+			enabled: items.length > 0,
+		},
 	});
 
 	if (mediaFind.isLoading) {
@@ -37,8 +40,8 @@ export function MediaModalPreview({ items, axios }: MediaModalPreviewProps) {
 			<Stack>
 				{Array(2)
 					.fill(1)
-					.map((value) => (
-						<MediaModalPreviewItemSkeleton key={value} />
+					.map((_, index) => (
+						<MediaModalPreviewItemSkeleton key={index.toString()} />
 					))}
 			</Stack>
 		);

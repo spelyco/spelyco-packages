@@ -6,8 +6,8 @@ import { axiosInstance } from "../axios";
 export function AssetPicker() {
 	const form = useForm({
 		initialValues: {
-			file: 6,
-			files: [6, 4],
+			file: null,
+			files: [],
 		},
 	});
 
