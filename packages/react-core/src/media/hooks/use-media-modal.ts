@@ -1,4 +1,6 @@
 import { useThrottledValue } from "@mantine/hooks";
+import { modals } from "@mantine/modals";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useStrapiFind } from "../../strapi";
 import type { MediaInterface } from "../interfaces/media-interface";
@@ -16,6 +18,7 @@ export function useMediaModal({ accept, axios, prefix }: MediaModalHooksProps) {
 			params: {
 				filters: {
 					name: {
+						$startsWithi: prefix,
 						$containsi: throttledValue,
 					},
 				},
@@ -23,9 +26,34 @@ export function useMediaModal({ accept, axios, prefix }: MediaModalHooksProps) {
 		},
 	});
 
+	const mediaDelete = useMutation({
+		mutationKey: ["media-delete", prefix],
+		mutationFn: async (id: string) => {
+			const request = await axios.delete(`/api/upload/files/${id}`);
+			return request.data;
+		},
+		onSuccess: () => {
+			mediaFind.refetch();
+		},
+	});
+
+	const onDestroy = (id: string) => {
+		modals.openConfirmModal({
+			title: "Delete Media",
+			children: "Are you sure you want to delete this media?",
+			labels: {
+				confirm: "Delete",
+				cancel: "Cancel",
+			},
+			onConfirm: () => mediaDelete.mutate(id),
+		});
+	};
+
 	return {
 		mediaFind,
+		mediaDelete,
 		searchValue,
 		setSearchValue,
+		onDestroy,
 	};
 }

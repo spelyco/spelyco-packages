@@ -27,6 +27,14 @@ export default {
 			...sanitizedQueryParams,
 			offset: (page - 1) * pageSize,
 			limit: pageSize,
+			orderBy:
+				sanitizedQueryParams.sort &&
+				typeof sanitizedQueryParams.sort === "string"
+					? {
+							[sanitizedQueryParams.sort.split(":")[0]]:
+								sanitizedQueryParams.sort.split(":")[1]?.toLowerCase() || "asc",
+						}
+					: undefined,
 		});
 
 		const total = await strapi.query(contentType.uid).count();

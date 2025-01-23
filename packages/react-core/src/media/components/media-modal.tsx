@@ -1,67 +1,159 @@
 import {
 	Box,
 	Button,
-	Checkbox,
+	Flex,
 	Group,
 	LoadingOverlay,
 	Modal,
-	Paper,
+	Pagination,
 	SimpleGrid,
+	Text,
 	TextInput,
 } from "@mantine/core";
-import { IconSearch } from "@tabler/icons-react";
+import { useField } from "@mantine/form";
+import { useMediaQuery } from "@mantine/hooks";
+import { IconFiles, IconSearch } from "@tabler/icons-react";
 import { useMediaModal } from "../hooks/use-media-modal";
 import type { MediaModalProps } from "../types";
-import { MediaModalCard } from "./media-modal-card";
+import { staticDictionary } from "../utils/static-dictronary";
+import { MediaModalHtmlInput } from "./media-modal-html-input";
+import { MediaModalUpload } from "./media-modal-upload";
+import { MediaModalWrapperCheckbox } from "./media-modal-wrapper-checkbox";
+import { MediaModalWrapperRadio } from "./media-modal-wrapper-radio";
 
 export function MediaModal({
 	accept,
 	prefix,
 	axios,
-	...props
+	type,
+	onClose,
+	opened,
+	onChange,
+	value,
+	dictionary,
+	maxSize,
 }: MediaModalProps) {
-	const { mediaFind, searchValue, setSearchValue } = useMediaModal({
+	const { mediaFind, searchValue, setSearchValue, onDestroy } = useMediaModal({
 		axios,
 		prefix,
 		accept,
 	});
+	const isMobile = useMediaQuery("(max-width: 50em)");
+
+	const field = useField<number | number[]>({
+		initialValue: value,
+	});
 
 	return (
-		<Modal.Root size={"80%"} {...props}>
+		<Modal.Root
+			fullScreen={isMobile}
+			centered
+			size={"90%"}
+			opened={opened}
+			onClose={onClose}
+			transitionProps={{ transition: "fade", duration: 200 }}
+		>
 			<Modal.Overlay />
 			<Modal.Content>
 				<Modal.Header>
 					<Group flex={1} justify="space-between">
-						<TextInput
-							placeholder="Dosya Ara"
-							size="xs"
+						<Pagination
 							flex={1}
-							value={searchValue}
-							onChange={(e) => setSearchValue(e.target.value)}
-							leftSection={<IconSearch size={16} />}
+							size={"xs"}
+							total={mediaFind.data?.meta.pagination.pageCount ?? 1}
+							onChange={mediaFind.helper.setPage}
+							value={mediaFind.helper.page}
 						/>
-						<Group flex={1} justify="flex-end">
-							<Button type="button" onClick={props.onClose}>
-								İptal
+						<Box>
+							<TextInput
+								placeholder={
+									dictionary?.main.modal.searchPlaceholder ??
+									staticDictionary.main.modal.searchPlaceholder
+								}
+								size="xs"
+								value={searchValue}
+								onChange={(e) => setSearchValue(e.target.value)}
+								leftSection={<IconSearch size={16} />}
+							/>
+						</Box>
+						<Group flex={1} gap={"xs"} justify="flex-end">
+							<Button type="button" onClick={onClose}>
+								{dictionary?.main.modal.cancelButton ??
+									staticDictionary.main.modal.cancelButton}
 							</Button>
-							<Button>Seç</Button>
+							<MediaModalUpload
+								axios={axios}
+								prefix={prefix}
+								dictionary={dictionary}
+								maxSize={maxSize}
+								onSuccess={() => {
+									mediaFind.refetch();
+								}}
+							/>
+							<Button
+								onClick={() => {
+									onChange(field.getValue());
+								}}
+							>
+								{dictionary?.main.modal.selectButton ??
+									staticDictionary.main.modal.selectButton}
+							</Button>
 						</Group>
 					</Group>
 				</Modal.Header>
-				<Modal.Body style={{ position: "relative" }}>
+				<Modal.Body mih={500} py={"sm"} style={{ position: "relative" }}>
 					<LoadingOverlay visible={mediaFind.isPending} />
-					<Box p={5}>
-						<SimpleGrid cols={4}>
-							{mediaFind.data?.data.map((media) => (
-								<Checkbox.Card key={media.documentId}>
-									<Paper withBorder>
-										<Checkbox.Indicator pos={"absolute"} top={10} left={10} />
-										<MediaModalCard axios={axios} media={media} />
-									</Paper>
-								</Checkbox.Card>
-							))}
+					{!mediaFind.data?.data.length && (
+						<Flex
+							h={500}
+							justify={"center"}
+							align={"center"}
+							direction={"column"}
+						>
+							<IconFiles
+								size={48}
+								stroke={1.2}
+								color="var(--mantine-color-gray-5)"
+							/>
+							<Text c={"dimmed"}>
+								{dictionary?.main.modal.notFound ??
+									staticDictionary.main.modal.notFound}
+							</Text>
+						</Flex>
+					)}
+					<MediaModalHtmlInput type={type} {...field.getInputProps()}>
+						<SimpleGrid
+							cols={{
+								xs: 2,
+								sm: 2,
+								md: 3,
+								lg: 4,
+							}}
+						>
+							{mediaFind.data?.data.map((media) => {
+								const defaultPropsForWrapper = {
+									axios,
+									media,
+								};
+
+								return type === "checkbox" ? (
+									<MediaModalWrapperCheckbox
+										dictionary={dictionary}
+										key={media.documentId}
+										onDestroy={onDestroy}
+										{...defaultPropsForWrapper}
+									/>
+								) : (
+									<MediaModalWrapperRadio
+										dictionary={dictionary}
+										key={media.documentId}
+										onDestroy={onDestroy}
+										{...defaultPropsForWrapper}
+									/>
+								);
+							})}
 						</SimpleGrid>
-					</Box>
+					</MediaModalHtmlInput>
 				</Modal.Body>
 			</Modal.Content>
 		</Modal.Root>

@@ -34,7 +34,7 @@ export function useStrapiFind<T>({
 	const [page, setPage] = useState(1);
 
 	const [sortStatus, setSortStatus] = useState<DataTableSortStatus<T>>({
-		columnAccessor: "createdAt",
+		columnAccessor: "id",
 		direction: "desc",
 	});
 

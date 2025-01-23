@@ -1,4 +1,4 @@
-import type { ModalProps, SelectProps } from "@mantine/core";
+import type { GetInputPropsReturnType } from "@mantine/form/lib/types";
 import type { AxiosInstance } from "axios";
 
 // Base (for Select, MultiSelect) component props
@@ -12,8 +12,50 @@ export type MediaBaseProps = {
 export type MediaExtensionAcceptType = "image" | "file" | "audio" | "video";
 
 // Select Component Props
-export type MediaSelectProps = Omit<SelectProps, "accept"> & MediaBaseProps;
+export type MediaSelectProps = MediaBaseProps &
+	GetInputPropsReturnType & {
+		type: "checkbox" | "radio";
+		value: number | number[];
+		onChange: (value: number | number[]) => void;
+		dictionary?: MediaDictionary;
+		maxSize?: number;
+	};
 
 // Modal Component Props
-export type MediaModalProps = MediaBaseProps & ModalProps & {};
+export type MediaModalProps = MediaBaseProps & {
+	type: "checkbox" | "radio";
+	opened: boolean;
+	onClose: () => void;
+	value: number | number[];
+	onChange: (value: number | number[]) => void;
+	dictionary?: MediaDictionary;
+	maxSize?: number;
+};
+
 export type MediaModalHooksProps = MediaBaseProps;
+
+// Dictionary
+export type MediaDictionary = {
+	main: {
+		extension?: string;
+		selectAndUpload?: string;
+		modal: {
+			searchPlaceholder?: string;
+			cancelButton?: string;
+			selectButton?: string;
+			notFound?: string;
+			upload: {
+				title: string;
+				dropzoneTitle?: string;
+				dropzoneDescription?: string;
+				dropzoneUploadButton?: string;
+			};
+			wrapper: {
+				card: {
+					deleteTooltip?: string;
+					copyTooltip?: string;
+				};
+			};
+		};
+	};
+};
