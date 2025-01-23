@@ -12,18 +12,7 @@ export default defineConfig({
 	sourcemap: true,
 	clean: true,
 	outDir: "dist",
-	external: [
-		"@strapi/strapi",
-		"@strapi/admin",
-		"@strapi/design-system",
-		"@strapi/helper-plugin",
-		"@strapi/icons",
-		"react",
-		"react-dom",
-		"react-router-dom",
-		"styled-components",
-		"koa",
-	],
+	external: ["@strapi/strapi", "@strapi/admin", "koa"],
 	async onSuccess() {
 		// Build sonrası package.json'ı dist klasörüne kopyala
 		await copyFile("package.json", "dist/package.json");
