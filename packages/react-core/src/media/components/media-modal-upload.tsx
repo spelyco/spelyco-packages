@@ -115,7 +115,11 @@ export function MediaModalUpload({
 					</Group>
 				</Dropzone>
 			</Modal>
-			<Button leftSection={<IconUpload size={16} />} onClick={toggle}>
+			<Button
+				type="button"
+				leftSection={<IconUpload size={16} />}
+				onClick={toggle}
+			>
 				{dictionary?.main.modal.upload.dropzoneUploadButton ??
 					staticDictionary.main.modal.upload.dropzoneUploadButton}
 			</Button>

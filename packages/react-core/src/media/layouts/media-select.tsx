@@ -46,7 +46,7 @@ export function MediaSelect({
 						</Text>
 					</Group>
 
-					<Button onClick={open}>
+					<Button type="button" onClick={open}>
 						{dictionary?.main.selectAndUpload ??
 							staticDictionary.main.selectAndUpload}
 					</Button>

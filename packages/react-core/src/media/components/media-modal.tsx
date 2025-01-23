@@ -89,6 +89,7 @@ export function MediaModal({
 								}}
 							/>
 							<Button
+								type="button"
 								onClick={() => {
 									onChange(field.getValue());
 								}}

@@ -72,7 +72,12 @@ export function MediaModalCard({
 								staticDictionary.main.modal.wrapper.card.copyTooltip
 							}
 						>
-							<ActionIcon size={"input-xs"} variant="default" onClick={copy}>
+							<ActionIcon
+								type="button"
+								size={"input-xs"}
+								variant="default"
+								onClick={copy}
+							>
 								{copied ? <IconCheck size={16} /> : <IconCopy size={16} />}
 							</ActionIcon>
 						</Tooltip>
