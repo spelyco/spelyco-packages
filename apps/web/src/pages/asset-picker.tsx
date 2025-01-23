@@ -22,7 +22,6 @@ export function AssetPicker() {
 	return (
 		<Stack>
 			<MediaSelect
-				accept={["image"]}
 				axios={axiosInstance}
 				prefix="module_2"
 				type="radio"
@@ -31,7 +30,6 @@ export function AssetPicker() {
 				})}
 			/>
 			<MediaSelect
-				accept={["image"]}
 				axios={axiosInstance}
 				prefix="module_1"
 				type="checkbox"

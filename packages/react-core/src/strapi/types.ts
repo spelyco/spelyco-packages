@@ -6,5 +6,5 @@ export type UseStrapiBaseInterface = {
 	serviceName: string;
 	config?: AxiosRequestConfig;
 	key: string[];
-	queryOptions?: Omit<UseQueryOptions, "queryKey" | "queryFn">;
+	queryOptions?: UseQueryOptions;
 };

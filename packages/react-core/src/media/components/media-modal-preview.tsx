@@ -32,6 +32,7 @@ export function MediaModalPreview({ items, axios }: MediaModalPreviewProps) {
 		},
 		queryOptions: {
 			enabled: items.length > 0,
+			queryKey: ["medias", "preview", items.join(",")],
 		},
 	});
 

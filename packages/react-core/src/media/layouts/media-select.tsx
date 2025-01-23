@@ -8,7 +8,6 @@ import { staticDictionary } from "../utils/static-dictronary";
 
 export function MediaSelect({
 	axios,
-	accept,
 	prefix,
 	type,
 	value,
@@ -27,7 +26,6 @@ export function MediaSelect({
 					axios={axios}
 					opened={true}
 					onClose={close}
-					accept={accept}
 					prefix={prefix}
 					type={type}
 					value={prepareValue}

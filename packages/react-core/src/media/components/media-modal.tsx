@@ -22,7 +22,6 @@ import { MediaModalWrapperCheckbox } from "./media-modal-wrapper-checkbox";
 import { MediaModalWrapperRadio } from "./media-modal-wrapper-radio";
 
 export function MediaModal({
-	accept,
 	prefix,
 	axios,
 	type,
@@ -36,7 +35,6 @@ export function MediaModal({
 	const { mediaFind, searchValue, setSearchValue, onDestroy } = useMediaModal({
 		axios,
 		prefix,
-		accept,
 	});
 	const isMobile = useMediaQuery("(max-width: 50em)");
 

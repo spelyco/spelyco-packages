@@ -5,7 +5,6 @@ import type { AxiosInstance } from "axios";
 export type MediaBaseProps = {
 	axios: AxiosInstance;
 	prefix: string; // prefix for the media group
-	accept: MediaExtensionAcceptType[];
 };
 
 // Extension Type
