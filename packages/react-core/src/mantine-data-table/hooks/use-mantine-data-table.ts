@@ -90,7 +90,7 @@ export function useMantineDataTable<T>({
 			if (mutateDelete.isSuccess) {
 				void fetchFind.refetch();
 			}
-		}, [mutateDelete.isSuccess]); // fetchFind.refetch is stable, no need to include
+		}, [mutateDelete.isSuccess, fetchFind.refetch()]); // fetchFind.refetch is stable, no need to include
 
 		return {
 			fetchFind,

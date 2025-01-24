@@ -19,10 +19,14 @@ export function MantineDataTable<T>({
 
 	// Memoize the effective columns to prevent unnecessary recalculations
 	const { effectiveColumns } = useDataTableColumns<T>({
-		key: props.storeColumnsKey ?? uniqueId(),
-		columns: [leftColumn, ...columns, rightColumn].filter(
-			(column) => column !== undefined,
-		) as MantineDataTableColumnProps<T>[],
+		key: props.storeColumnsKey ?? "",
+		columns: useMemo(
+			() =>
+				[leftColumn, ...columns, rightColumn].filter(
+					(column) => column !== undefined,
+				) as MantineDataTableColumnProps<T>[],
+			[leftColumn, columns, rightColumn],
+		),
 	});
 
 	// Memoize pagination values
