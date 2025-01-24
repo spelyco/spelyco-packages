@@ -6,13 +6,7 @@ import type {
 	MantineDataTableFilterTypeProps,
 } from "../types";
 
-type MantineDataTableFilterProps = {
-	columnDefs: MantineDataTableColumnProps[];
-};
-
-export function useMantineDataTableFilter({
-	columnDefs,
-}: MantineDataTableFilterProps) {
+export function useMantineDataTableFilter() {
 	const [opened, { open, close }] = useDisclosure();
 
 	const [filterGroups, groupHandlers] =

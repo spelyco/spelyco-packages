@@ -22,7 +22,7 @@ import {
 } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import { IconMenu3, IconMinus, IconPlus } from "@tabler/icons-react";
-import type { ReactNode } from "react";
+import { useCallback, useMemo, type ReactNode } from "react";
 import { useMantineDataTableFilter } from "../hooks/use-mantine-data-table-filter";
 import type {
 	FilterOperator,
@@ -83,68 +83,104 @@ export function MantineDataTableFilter({
 		removeFilter,
 		updateFilter,
 		getQueryParams,
-	} = useMantineDataTableFilter({
-		columnDefs,
-	});
+	} = useMantineDataTableFilter();
 
-	const mantineDataTableTypeComponent = (
-		group: MantineDataTableFilterGroup,
-		filter: MantineDataTableFilterTypeProps,
-	) => {
-		const defaultProps = {
-			size: "xs",
-			flex: 1,
-		};
+	// Memoize operators data
+	const operatorsData = useMemo(
+		() => [
+			{ value: "$eq", label: "Equals" },
+			{ value: "$ne", label: "Not Equals" },
+			{ value: "$lt", label: "Less Than" },
+			{ value: "$lte", label: "Less Than or Equal To" },
+			{ value: "$gt", label: "Greater Than" },
+			{ value: "$gte", label: "Greater Than or Equal To" },
+			{ value: "$contains", label: "Contains" },
+			{ value: "$notContains", label: "Does Not Contain" },
+		],
+		[],
+	);
 
-		switch (filter.type) {
-			case "number":
-				return (
-					<NumberInput
-						{...defaultProps}
-						value={(filter.value as string) ?? ""}
-						onChange={(value) => {
-							updateFilter(group.id, filter.id, {
-								value: value ?? "",
-								type: filter.type,
-								field: filter.field,
-								operator: filter.operator,
-							});
-						}}
-					/>
-				);
-			case "date":
-				return (
-					<DateInput
-						size="xs"
-						flex={1}
-						value={filter.value ? new Date(filter.value as string) : null}
-						onChange={(value) => {
-							updateFilter(group.id, filter.id, {
-								value: value?.toISOString() ?? "",
-								type: filter.type,
-								field: filter.field,
-								operator: filter.operator,
-							});
-						}}
-					/>
-				);
-			default:
-				return (
-					<TextInput
-						{...defaultProps}
-						value={(filter.value as string) ?? ""}
-						onChange={(e) => {
-							updateFilter(group.id, filter.id, {
-								value: e.currentTarget.value,
-								type: filter.type,
-								field: filter.field,
-								operator: filter.operator,
-							});
-						}}
-					/>
-				);
-		}
-	};
+	// Memoize the type component function
+	const mantineDataTableTypeComponent = useCallback(
+		(
+			group: MantineDataTableFilterGroup,
+			filter: MantineDataTableFilterTypeProps,
+		) => {
+			const defaultProps = {
+				size: "xs",
+				flex: 1,
+			};
+
+			switch (filter.type) {
+				case "number":
+					return (
+						<NumberInput
+							{...defaultProps}
+							value={(filter.value as string) ?? ""}
+							onChange={(value) => {
+								updateFilter(group.id, filter.id, {
+									value: value ?? "",
+									type: filter.type,
+									field: filter.field,
+									operator: filter.operator,
+								});
+							}}
+						/>
+					);
+				case "date":
+					return (
+						<DateInput
+							size="xs"
+							flex={1}
+							value={filter.value ? new Date(filter.value as string) : null}
+							onChange={(value) => {
+								updateFilter(group.id, filter.id, {
+									value: value?.toISOString() ?? "",
+									type: filter.type,
+									field: filter.field,
+									operator: filter.operator,
+								});
+							}}
+						/>
+					);
+				default:
+					return (
+						<TextInput
+							{...defaultProps}
+							value={(filter.value as string) ?? ""}
+							onChange={(e) => {
+								updateFilter(group.id, filter.id, {
+									value: e.currentTarget.value,
+									type: filter.type,
+									field: filter.field,
+									operator: filter.operator,
+								});
+							}}
+						/>
+					);
+			}
+		},
+		[updateFilter],
+	);
+
+	// Memoize handlers
+	const handleCloseConfirm = useCallback(() => {
+		onConfirm?.(getQueryParams());
+		close();
+	}, [onConfirm, getQueryParams, close]);
+
+	const handleColumnChange = useCallback(
+		(groupId: string, filterId: string, value: string) => {
+			const findColumn = columnDefs.find((column) => column.accessor === value);
+			updateFilter(groupId, filterId, {
+				field: value,
+				type: findColumn?.type ?? "text",
+				operator: "$eq",
+				value: null,
+			});
+		},
+		[columnDefs, updateFilter],
+	);
 
 	return (
 		<Popover

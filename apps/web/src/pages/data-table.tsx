@@ -17,7 +17,6 @@ type Customer = {
 
 function DataTablePage() {
 	const [filters, setFilters] = useState<Record<string, unknown>>({});
-	const [selected, setSelected] = useState<Customer[]>([]);
 
 	const { handleDeleteItemWithModal, ...api } = useMantineDataTable<Customer>({
 		serviceName: "articles",
@@ -38,8 +37,6 @@ function DataTablePage() {
 		columns: columnDefs,
 		api,
 		idAccessor: "id",
-		// selectedRecords: selected,
-		// onSelectedRecordsChange: (selected) => setSelected(selected),
 		leftColumn: {
 			accessor: "",
 			title: "",
@@ -80,37 +77,20 @@ function DataTablePage() {
 						dropdownLabel={<Text fw={"bold"}>In this view show records</Text>}
 						onConfirm={(filters) => setFilters(filters)}
 					/>
-					{selected.length > 0 && (
-						<Group gap={5}>
-							{/* <MantineDataTable.ActionDelete
-								selected={selected}
-								onChangeSelected={setSelected}
-								variant="outline"
-							/> */}
-							{/* <MantineDataTable.ActionCopy
-								selected={selected}
-								onChangeSelected={setSelected}
-								axios={axiosInstance}
-								serviceName="articles"
-							/>
-							<MantineDataTable.ActionStatusDraft
-								selected={selected}
-								onChangeSelected={setSelected}
-								variant="default"
-							/>
-							<MantineDataTable.ActionStatusPublished
-								selected={selected}
-								onChangeSelected={setSelected}
-								variant="default"
-							/> */}
-						</Group>
-					)}
 				</Group>
 				<Button variant="default" leftSection={<IconPlus size={16} />}>
 					Ekle
 				</Button>
 			</MantineDataTable.Group>
-			<MantineDataTable.Content {...mantineDataTableProps} />
+			<MantineDataTable.Content
+				styles={{
+					header: {
+						backgroundColor: "var(--mantine-color-gray-1)",
+					},
+				}}
+				storeColumnsKey={"mantine-data-table-customers-columns"}
+				{...mantineDataTableProps}
+			/>
 		</MantineDataTable.Root>
 	);
 }
