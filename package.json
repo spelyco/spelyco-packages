@@ -28,5 +28,5 @@
 	"engines": {
 		"node": ">=18"
 	},
-	"packageManager": "bun@1.1.43"
+	"packageManager": "npm@10.8.2"
 }

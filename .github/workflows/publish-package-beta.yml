@@ -31,13 +31,8 @@ jobs:
           node-version: '18'
           registry-url: ${{ inputs.registry }}
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-
       - name: Install dependencies
-        run: bun install
+        run: npm install
 
       - name: Get package version
         id: package_version
@@ -49,17 +44,16 @@ jobs:
         run: |
           cd packages/${{ inputs.package_name }}
           rm -rf node_modules
-          bun clean
 
       - name: Install package dependencies
         run: |
           cd packages/${{ inputs.package_name }}
-          bun install
+          npm install
 
       - name: Build package
         run: |
           cd packages/${{ inputs.package_name }}
-          bun run build
+          npm run build
 
       - name: Update package version
         run: |
@@ -86,4 +80,4 @@ jobs:
           git tag ${{ inputs.package_name }}@${{ steps.package_version.outputs.version }}
           git push origin ${{ inputs.package_name }}@${{ steps.package_version.outputs.version }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
